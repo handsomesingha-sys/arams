@@ -1,0 +1,2632 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17365d">
+  <meta name="description" content="ARAMS ระบบบริหารงานทะเบียนและวัดผลทางการศึกษา">
+  <title>ARAMS | ระบบบริหารงานทะเบียนและวัดผล</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+  <style>
+    :root{--navy:#17365d;--navy2:#214b79;--blue:#2563a6;--sky:#eaf2fb;--ink:#1c2733;--muted:#697789;--line:#e1e7ef;--surface:#fff;--canvas:#f4f7fb;--green:#18794e;--red:#b42318;--amber:#946200;--shadow:0 6px 24px rgba(23,54,93,.08);--sidebar:278px}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"TH Sarabun PSK","Sarabun",Tahoma,sans-serif;color:var(--ink);background:var(--canvas);font-size:18px}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.hidden{display:none!important}.muted{color:var(--muted)}.small{font-size:15px}.mono{font-variant-numeric:tabular-nums}.text-right{text-align:right}.text-center{text-align:center}.nowrap{white-space:nowrap}.w-100{width:100%}
+    .login-screen{min-height:100vh;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#edf3fa,#f7f9fc 55%,#e5edf7)}.login-card{width:min(450px,100%);background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:34px}.brand-mark{width:58px;height:58px;display:grid;place-items:center;border-radius:15px;background:var(--navy);color:white;font-size:27px;margin:0 auto 12px}.login-title{text-align:center;font-size:30px;font-weight:700;color:var(--navy);margin:0}.login-subtitle{text-align:center;color:var(--muted);font-size:17px;margin:3px 0 25px}.field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}.field label{font-weight:600;color:#344256}.field input,.field select,.field textarea,.toolbar input,.toolbar select,.filter-input{width:100%;border:1px solid #cad4e1;border-radius:8px;padding:9px 12px;background:#fff;outline:none;min-height:42px}.field textarea{min-height:88px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus,.toolbar input:focus,.filter-input:focus{border-color:#5c91c9;box-shadow:0 0 0 3px rgba(37,99,166,.12)}.field-hint{font-size:14px;color:var(--muted)}
+    .btn{border:1px solid transparent;border-radius:8px;padding:8px 14px;min-height:40px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;transition:.15s;background:#fff;color:var(--ink)}.btn:disabled{opacity:.55;cursor:not-allowed}.btn-primary{background:var(--navy);color:#fff}.btn-primary:hover{background:var(--navy2)}.btn-outline{border-color:#cbd5e1;background:#fff}.btn-outline:hover{background:#f2f6fa}.btn-danger{background:#fff0ef;border-color:#ffd0cc;color:var(--red)}.btn-success{background:#eaf7f0;border-color:#b9e5ce;color:var(--green)}.btn-sm{min-height:32px;padding:5px 10px;font-size:16px}.btn-block{width:100%}
+    .app-shell{min-height:100vh}.sidebar{position:fixed;z-index:30;inset:0 auto 0 0;width:var(--sidebar);background:var(--navy);color:#fff;display:flex;flex-direction:column;box-shadow:3px 0 14px rgba(18,45,77,.12);transition:transform .2s}.side-brand{display:flex;align-items:center;gap:12px;padding:19px 18px;border-bottom:1px solid rgba(255,255,255,.14)}.side-brand .brand-icon{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.13);display:grid;place-items:center;font-size:20px}.side-brand strong{font-size:24px;line-height:1.1}.side-brand small{display:block;color:#c6d5e7;font-size:13px}.side-user{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.12);font-size:16px}.side-user strong{display:block;font-size:18px}.side-nav{padding:12px 10px;overflow:auto;flex:1}.nav-section{color:#aebfd3;font-size:13px;text-transform:uppercase;letter-spacing:.7px;padding:13px 10px 5px}.nav-link{width:100%;border:0;background:transparent;color:#dce6f1;padding:9px 11px;border-radius:8px;display:flex;align-items:center;gap:11px;text-align:left;font-size:17px;margin:2px 0}.nav-link i{width:20px;text-align:center;color:#b9cce0}.nav-link:hover,.nav-link.active{background:rgba(255,255,255,.14);color:#fff}.nav-link.active{box-shadow:inset 3px 0 #a9d2ff}.side-footer{padding:13px;border-top:1px solid rgba(255,255,255,.12)}.side-footer .nav-link{margin:0}
+    .main-area{margin-left:var(--sidebar);min-height:100vh}.topbar{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 25px;position:sticky;top:0;z-index:20}.topbar-left,.topbar-right{display:flex;align-items:center;gap:12px}.mobile-menu{display:none}.page-heading{font-size:27px;font-weight:700;color:var(--navy)}.topbar-meta{color:var(--muted);font-size:15px}.user-chip{display:flex;align-items:center;gap:8px;padding:6px 10px;background:#f4f7fb;border:1px solid var(--line);border-radius:30px}.user-avatar{width:30px;height:30px;background:#dce9f7;color:var(--navy);border-radius:50%;display:grid;place-items:center}.content{padding:24px;max-width:1800px;margin:0 auto}.page-title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:18px}.page-title{margin:0;font-size:29px;color:var(--navy);line-height:1.15}.page-subtitle{margin-top:4px;color:var(--muted);font-size:16px}.card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 2px 9px rgba(23,54,93,.035);padding:18px;margin-bottom:18px}.card-title{font-size:21px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:9px;margin:0 0 14px}.card-title i{color:var(--blue)}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}.stat-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:13px;align-items:center}.stat-icon{width:47px;height:47px;display:grid;place-items:center;border-radius:11px;background:var(--sky);color:var(--blue);font-size:21px;flex:none}.stat-label{color:var(--muted);font-size:16px}.stat-value{font-size:29px;font-weight:700;color:var(--navy);line-height:1.1}.grid-two{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.level-bars{display:grid;gap:12px}.level-row{display:grid;grid-template-columns:60px 1fr 45px;align-items:center;gap:8px}.bar-track{height:12px;border-radius:20px;background:#edf1f6;overflow:hidden}.bar-fill{height:100%;background:#4c83bd;border-radius:20px}.simple-list{display:grid;gap:8px}.simple-list-item{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #edf1f5}.simple-list-item:last-child{border-bottom:0}
+    .toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:13px}.toolbar .searchbox{min-width:220px;flex:1}.toolbar select{width:auto;min-width:170px}.toolbar input{min-width:180px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:9px}.data-table{width:100%;border-collapse:collapse;background:#fff;min-width:760px}.data-table th{background:#f1f5fa;color:#31445c;font-weight:700;text-align:left;padding:10px 11px;white-space:nowrap;border-bottom:1px solid #dfe6ef}.data-table td{padding:9px 11px;border-bottom:1px solid #edf1f5;vertical-align:middle}.data-table tr:hover td{background:#fafcff}.data-table tr:last-child td{border-bottom:0}.table-actions{display:flex;gap:5px;white-space:nowrap}.pagination{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}.pagination-actions{display:flex;gap:6px}.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:14px;font-weight:600;background:#eef2f6;color:#526174}.badge-green{background:#e8f6ee;color:#176b43}.badge-red{background:#fff0ef;color:#aa261d}.badge-amber{background:#fff6df;color:#825800}.badge-blue{background:#eaf2fb;color:#1d5489}.empty-state{text-align:center;padding:35px 12px;color:var(--muted)}.empty-state i{font-size:32px;color:#9aabba;margin-bottom:8px}
+    .module-toolbar{display:grid;grid-template-columns:minmax(190px,270px) minmax(190px,1fr) auto;gap:9px;margin-bottom:13px}.module-toolbar select,.module-toolbar input{border:1px solid #cad4e1;border-radius:8px;padding:9px 11px;min-height:42px}.module-info{padding:10px 12px;border-radius:8px;background:#f6f9fc;color:#506176;font-size:15px;margin-bottom:13px}.quick-actions{display:flex;gap:8px;flex-wrap:wrap}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}.form-field{min-width:0}.form-field.full{grid-column:1/-1}.file-input{border:1px dashed #9fb4cc;border-radius:9px;padding:12px;background:#f8fbff}.image-preview{max-width:160px;max-height:160px;object-fit:cover;border-radius:9px;border:1px solid var(--line);display:block;margin-top:8px}.workflow-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.workflow-card{border:1px solid var(--line);border-radius:10px;padding:16px;background:#fff}.workflow-card h3{margin:0 0 7px;font-size:21px;color:var(--navy)}.workflow-card p{margin:0 0 12px;color:var(--muted);font-size:16px}.workflow-card .field{margin-bottom:9px}.workflow-result{padding:14px;background:#f6f9fc;border-radius:8px;margin-top:12px;white-space:pre-wrap}.report-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.report-tile{border:1px solid var(--line);border-radius:10px;padding:15px;background:#fff;display:flex;flex-direction:column;gap:8px}.report-tile i{font-size:22px;color:var(--blue)}.report-tile strong{font-size:19px;color:var(--navy)}.report-tile span{font-size:15px;color:var(--muted);flex:1}
+    .loading-line{height:3px;background:#eaf0f7;overflow:hidden;border-radius:10px}.loading-line:after{content:"";display:block;width:35%;height:100%;background:#4b84bd;animation:loadmove 1.2s infinite ease-in-out}@keyframes loadmove{0%{transform:translateX(-110%)}100%{transform:translateX(310%)}}.connection-status{font-size:14px;display:flex;gap:6px;align-items:center}.connection-status.ok{color:var(--green)}.connection-status.off{color:var(--red)}.mobile-overlay{display:none}
+    .swal2-popup{font-family:"TH Sarabun PSK","Sarabun",Tahoma,sans-serif!important;font-size:19px!important}.swal2-title{font-size:27px!important}.swal2-html-container{font-size:18px!important}.swal2-confirm,.swal2-cancel{font-family:inherit!important;font-size:17px!important}
+    @media(max-width:1100px){:root{--sidebar:250px}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.report-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.content{padding:18px}}
+    @media(max-width:760px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main-area{margin-left:0}.mobile-menu{display:inline-flex}.mobile-overlay.show{display:block;position:fixed;inset:0;background:rgba(15,32,51,.4);z-index:25}.topbar{padding:0 13px;height:60px}.page-heading{font-size:22px}.topbar-meta{display:none}.content{padding:13px}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat-card{padding:11px;gap:9px}.stat-icon{width:39px;height:39px;font-size:18px}.stat-value{font-size:24px}.grid-two,.workflow-grid{grid-template-columns:1fr}.module-toolbar{grid-template-columns:1fr}.module-toolbar select,.module-toolbar input{width:100%}.report-grid{grid-template-columns:1fr}.page-title-row{align-items:flex-start;flex-direction:column}.form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}.user-chip .user-name{display:none}.login-card{padding:25px 20px}}
+    @media print{.no-print{display:none!important}}
+  </style>
+</head>
+<body>
+  <section id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <div class="brand-mark"><i class="fa-solid fa-graduation-cap"></i></div>
+      <h1 class="login-title">ARAMS</h1>
+      <p class="login-subtitle">ระบบบริหารงานทะเบียนและวัดผลทางการศึกษา</p>
+      <form id="loginForm">
+        <div class="field"><label for="loginEmail">อีเมลผู้ใช้งาน</label><input id="loginEmail" name="email" type="email" autocomplete="username" required placeholder="name@school.ac.th"></div>
+        <div class="field"><label for="loginPassword">รหัสผ่าน</label><input id="loginPassword" name="password" type="password" autocomplete="current-password" required placeholder="กรอกรหัสผ่าน"></div>
+        <button class="btn btn-primary btn-block" type="submit" id="loginButton"><i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ</button>
+      </form>
+      <p class="small muted text-center" style="margin:18px 0 0">สำหรับบุคลากร นักเรียน และผู้ปกครองที่ได้รับสิทธิ์</p>
+    </div>
+  </section>
+
+  <div id="appShell" class="app-shell hidden">
+    <div id="mobileOverlay" class="mobile-overlay" onclick="toggleSidebar(false)"></div>
+    <aside id="sidebar" class="sidebar">
+      <div class="side-brand"><div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div><div><strong>ARAMS</strong><small>Academic Management System</small></div></div>
+      <div class="side-user"><strong id="sideUserName">ผู้ใช้งาน</strong><span id="sideUserRole" class="small" style="color:#c6d5e7">-</span></div>
+      <nav id="sideNav" class="side-nav" aria-label="เมนูหลัก"></nav>
+      <div class="side-footer">
+        <button class="nav-link" onclick="openChangePassword()"><i class="fa-solid fa-key"></i><span>เปลี่ยนรหัสผ่าน</span></button>
+        <button class="nav-link" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i><span>ออกจากระบบ</span></button>
+      </div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar no-print">
+        <div class="topbar-left"><button class="btn btn-outline mobile-menu" onclick="toggleSidebar()" aria-label="เปิดเมนู"><i class="fa-solid fa-bars"></i></button><div class="page-heading" id="topPageTitle">Dashboard</div></div>
+        <div class="topbar-right"><span id="connectionStatus" class="connection-status"><i class="fa-solid fa-circle-notch fa-spin"></i> กำลังตรวจสอบ</span><span class="topbar-meta" id="currentAcademicLabel"></span><div class="user-chip"><span class="user-avatar"><i class="fa-solid fa-user"></i></span><span class="user-name" id="topUserName">ผู้ใช้งาน</span></div></div>
+      </header>
+      <div id="pageContent" class="content"><div class="loading-line"></div></div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+  <script>
+    'use strict';
+
+    /* ======================================================================
+       ARAMS FRONTEND CONFIGURATION
+       ผูก API action และชื่อตารางให้ตรงกับ Code.gs ฉบับที่ส่งมอบ
+       ====================================================================== */
+    const ARAMS_API = {
+      url: localStorage.getItem('ARAMS_API_URL') || '',
+      token: sessionStorage.getItem('ARAMS_TOKEN') || '',
+      user: null,
+      permissions: [],
+      modules: {},
+      currentModule: 'dashboard',
+      currentTable: '',
+      currentPage: 1,
+      pageSize: 50,
+      currentQuery: '',
+      currentRecords: [],
+      currentPagination: null,
+      selectedRows: new Set(),
+      options: {},
+      dashboard: null
+    };
+
+    const MODULES = {
+  "dashboard": {
+    "code": "dashboard",
+    "label": "Dashboard",
+    "tables": [],
+    "defaultTable": "",
+    "readOnly": true
+  },
+  "students": {
+    "code": "students",
+    "label": "ทะเบียนนักเรียน",
+    "tables": [
+      "STUDENTS",
+      "GUARDIANS",
+      "STUDENT_GUARDIANS",
+      "STUDENT_EDUCATION_HISTORY",
+      "STUDENT_STATUS_HISTORY",
+      "STUDENT_DOCUMENTS"
+    ],
+    "defaultTable": "STUDENTS"
+  },
+  "admissions": {
+    "code": "admissions",
+    "label": "รับสมัครนักเรียน",
+    "tables": [
+      "ADMISSIONS",
+      "ADMISSION_DOCUMENTS",
+      "ADMISSION_EXAMS",
+      "ADMISSION_RESULTS"
+    ],
+    "defaultTable": "ADMISSIONS"
+  },
+  "curriculum": {
+    "code": "curriculum",
+    "label": "หลักสูตรและรายวิชา",
+    "tables": [
+      "CURRICULA",
+      "CURRICULUM_VERSIONS",
+      "LEARNING_AREAS",
+      "SUBJECTS",
+      "CURRICULUM_SUBJECTS",
+      "STUDY_PLANS",
+      "STUDY_PLAN_SUBJECTS",
+      "GRADUATION_REQUIREMENTS",
+      "GRADE_SCALE"
+    ],
+    "defaultTable": "SUBJECTS"
+  },
+  "registration": {
+    "code": "registration",
+    "label": "ลงทะเบียนเรียน",
+    "tables": [
+      "CLASSROOMS",
+      "CLASS_MEMBERSHIPS",
+      "COURSE_SECTIONS",
+      "REGISTRATIONS",
+      "REGISTRATION_CHANGES"
+    ],
+    "defaultTable": "REGISTRATIONS"
+  },
+  "timetable": {
+    "code": "timetable",
+    "label": "ตารางเรียนและตารางสอน",
+    "tables": [
+      "TIMETABLES",
+      "TIMETABLE_ENTRIES",
+      "ROOMS",
+      "TEACHER_ASSIGNMENTS"
+    ],
+    "defaultTable": "TIMETABLES"
+  },
+  "attendance": {
+    "code": "attendance",
+    "label": "เวลาเรียน",
+    "tables": [
+      "ATTENDANCE",
+      "ATTENDANCE_SUMMARIES"
+    ],
+    "defaultTable": "ATTENDANCE"
+  },
+  "assessment": {
+    "code": "assessment",
+    "label": "วัดผลและประเมินผล",
+    "tables": [
+      "ASSESSMENT_SCHEMES",
+      "ASSESSMENT_ITEMS",
+      "SCORES",
+      "GRADE_RESULTS",
+      "GRADE_APPROVALS",
+      "STUDENT_ACTIVITY_RESULTS",
+      "CHARACTER_ASSESSMENTS",
+      "READING_THINKING_ASSESSMENTS",
+      "COMPETENCY_ASSESSMENTS"
+    ],
+    "defaultTable": "ASSESSMENT_ITEMS"
+  },
+  "gradeImprovement": {
+    "code": "gradeImprovement",
+    "label": "แก้ไขผลการเรียน",
+    "tables": [
+      "GRADE_IMPROVEMENT_CASES",
+      "GRADE_IMPROVEMENT_ACTIVITIES"
+    ],
+    "defaultTable": "GRADE_IMPROVEMENT_CASES"
+  },
+  "graduation": {
+    "code": "graduation",
+    "label": "ทะเบียนและสำเร็จการศึกษา",
+    "tables": [
+      "STUDENT_CREDITS",
+      "GRADUATION_AUDITS",
+      "GRADUATES",
+      "ACADEMIC_DOCUMENTS",
+      "DOCUMENT_COUNTERS"
+    ],
+    "defaultTable": "GRADUATES"
+  },
+  "analytics": {
+    "code": "analytics",
+    "label": "วิเคราะห์ผลการเรียน",
+    "tables": [
+      "GRADE_RESULTS",
+      "SCORES",
+      "ATTENDANCE_SUMMARIES",
+      "REPORT_SNAPSHOTS"
+    ],
+    "defaultTable": "GRADE_RESULTS",
+    "readOnly": true
+  },
+  "teachers": {
+    "code": "teachers",
+    "label": "ครูและครูที่ปรึกษา",
+    "tables": [
+      "TEACHERS",
+      "TEACHER_PROFILES",
+      "TEACHER_WORKLOAD",
+      "ADVISOR_ASSIGNMENTS",
+      "COUNSELING_RECORDS",
+      "STUDENT_ALERTS"
+    ],
+    "defaultTable": "TEACHERS"
+  },
+  "portal": {
+    "code": "portal",
+    "label": "นักเรียนและผู้ปกครอง",
+    "tables": [
+      "PARENT_LINKS",
+      "NOTIFICATIONS",
+      "STUDENT_DOCUMENTS",
+      "GRADE_RESULTS",
+      "ATTENDANCE_SUMMARIES"
+    ],
+    "defaultTable": "NOTIFICATIONS"
+  },
+  "reports": {
+    "code": "reports",
+    "label": "รายงานสารสนเทศ",
+    "tables": [
+      "REPORT_SNAPSHOTS",
+      "LEC_DATA_CHECKS",
+      "LEC_EXPORT_JOBS"
+    ],
+    "defaultTable": "REPORT_SNAPSHOTS",
+    "readOnly": true
+  },
+  "settings": {
+    "code": "settings",
+    "label": "ตั้งค่าระบบ",
+    "tables": [
+      "SYSTEM_SETTINGS",
+      "SCHOOL_PROFILE",
+      "USERS",
+      "ROLES",
+      "PERMISSIONS",
+      "ROLE_PERMISSIONS"
+    ],
+    "defaultTable": "SYSTEM_SETTINGS"
+  },
+  "lec": {
+    "code": "lec",
+    "label": "ข้อมูลต้นสังกัดและ LEC",
+    "tables": [
+      "LEC_DATA_CHECKS",
+      "LEC_EXPORT_JOBS"
+    ],
+    "defaultTable": "LEC_DATA_CHECKS"
+  },
+  "calendar": {
+    "code": "calendar",
+    "label": "ปฏิทินวิชาการ",
+    "tables": [
+      "ACADEMIC_YEARS",
+      "ACADEMIC_TERMS",
+      "ACADEMIC_CALENDAR",
+      "SCHOOL_EVENTS"
+    ],
+    "defaultTable": "ACADEMIC_CALENDAR"
+  },
+  "portfolio": {
+    "code": "portfolio",
+    "label": "แฟ้มสะสมผลงาน",
+    "tables": [
+      "STUDENT_PORTFOLIOS",
+      "PORTFOLIO_ITEMS"
+    ],
+    "defaultTable": "STUDENT_PORTFOLIOS"
+  },
+  "studentSupport": {
+    "code": "studentSupport",
+    "label": "ดูแลช่วยเหลือนักเรียน",
+    "tables": [
+      "COUNSELING_RECORDS",
+      "STUDENT_ALERTS",
+      "ATTENDANCE",
+      "GRADE_RESULTS"
+    ],
+    "defaultTable": "STUDENT_ALERTS"
+  },
+  "services": {
+    "code": "services",
+    "label": "คำร้องออนไลน์",
+    "tables": [
+      "SERVICE_REQUESTS",
+      "SERVICE_REQUEST_HISTORY"
+    ],
+    "defaultTable": "SERVICE_REQUESTS"
+  },
+  "system": {
+    "code": "system",
+    "label": "ระบบกลาง",
+    "tables": [
+      "AUDIT_LOGS",
+      "NOTIFICATIONS",
+      "IMAGE_UPLOADS",
+      "AUTH_ATTEMPTS"
+    ],
+    "defaultTable": "AUDIT_LOGS"
+  }
+};
+    const TABLE_SCHEMA = {
+  "SYSTEM_SETTINGS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "settingKey",
+    "settingValue",
+    "settingType",
+    "description",
+    "isPublic"
+  ],
+  "SCHOOL_PROFILE": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "schoolCode",
+    "schoolName",
+    "schoolNameEn",
+    "department",
+    "localAuthority",
+    "province",
+    "district",
+    "subDistrict",
+    "address",
+    "phone",
+    "email",
+    "website",
+    "logoUrl",
+    "academicDirectorName",
+    "principalName"
+  ],
+  "USERS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "email",
+    "username",
+    "passwordHash",
+    "passwordSalt",
+    "displayName",
+    "firstName",
+    "lastName",
+    "phone",
+    "roleCodes",
+    "teacherId",
+    "studentId",
+    "guardianId",
+    "lastLoginAt",
+    "passwordChangedAt",
+    "mustChangePassword",
+    "failedLoginCount",
+    "lockedUntil"
+  ],
+  "ROLES": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "roleCode",
+    "roleName",
+    "description",
+    "isSystemRole",
+    "sortOrder"
+  ],
+  "PERMISSIONS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "permissionCode",
+    "permissionName",
+    "moduleCode",
+    "actionCode",
+    "description"
+  ],
+  "ROLE_PERMISSIONS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "roleCode",
+    "permissionCode",
+    "allowed"
+  ],
+  "AUDIT_LOGS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "actorUserId",
+    "actorEmail",
+    "actorName",
+    "action",
+    "module",
+    "tableName",
+    "recordId",
+    "beforeJson",
+    "afterJson",
+    "reason",
+    "ipAddress",
+    "userAgent"
+  ],
+  "ACADEMIC_YEARS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "yearCode",
+    "yearName",
+    "startDate",
+    "endDate",
+    "isCurrent",
+    "isLocked"
+  ],
+  "ACADEMIC_TERMS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "academicYear",
+    "termCode",
+    "termName",
+    "startDate",
+    "endDate",
+    "registrationStart",
+    "registrationEnd",
+    "gradeSubmitDeadline",
+    "isCurrent",
+    "isLocked"
+  ],
+  "STUDENTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentCode",
+    "nationalId",
+    "title",
+    "firstName",
+    "lastName",
+    "firstNameEn",
+    "lastNameEn",
+    "nickname",
+    "gender",
+    "birthDate",
+    "bloodGroup",
+    "religion",
+    "nationality",
+    "ethnicity",
+    "phone",
+    "email",
+    "lineId",
+    "addressNo",
+    "villageNo",
+    "road",
+    "subDistrict",
+    "district",
+    "province",
+    "postalCode",
+    "currentAddress",
+    "photoUrl",
+    "admissionYear",
+    "admissionLevel",
+    "currentLevel",
+    "currentClassroomId",
+    "currentClassName",
+    "studyPlanId",
+    "studentType",
+    "previousSchool",
+    "previousSchoolProvince",
+    "specialNeeds",
+    "medicalNotes",
+    "emergencyContactName",
+    "emergencyContactRelation",
+    "emergencyContactPhone",
+    "enrollmentDate",
+    "graduationDate",
+    "studentStatus",
+    "userId"
+  ],
+  "GUARDIANS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "guardianCode",
+    "nationalId",
+    "title",
+    "firstName",
+    "lastName",
+    "relation",
+    "phone",
+    "phoneSecondary",
+    "email",
+    "occupation",
+    "workplace",
+    "address",
+    "lineId",
+    "photoUrl",
+    "userId"
+  ],
+  "STUDENT_GUARDIANS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "guardianId",
+    "relation",
+    "isPrimary",
+    "canReceiveNotifications",
+    "canViewAcademicRecords",
+    "canSubmitRequests"
+  ],
+  "STUDENT_EDUCATION_HISTORY": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "schoolName",
+    "level",
+    "className",
+    "gpa",
+    "startDate",
+    "endDate",
+    "documentUrl"
+  ],
+  "STUDENT_STATUS_HISTORY": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "oldStatus",
+    "newStatus",
+    "effectiveDate",
+    "reason",
+    "approvedBy"
+  ],
+  "STUDENT_DOCUMENTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "documentType",
+    "documentName",
+    "fileUrl",
+    "fileMimeType",
+    "fileSize",
+    "issuedDate",
+    "expiryDate",
+    "verifiedBy",
+    "verifiedAt"
+  ],
+  "ADMISSIONS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "applicationNo",
+    "academicYear",
+    "admissionLevel",
+    "admissionType",
+    "title",
+    "firstName",
+    "lastName",
+    "nationalId",
+    "gender",
+    "birthDate",
+    "phone",
+    "email",
+    "address",
+    "previousSchool",
+    "previousGpa",
+    "photoUrl",
+    "guardianName",
+    "guardianRelation",
+    "guardianPhone",
+    "documentStatus",
+    "examNumber",
+    "examScore",
+    "interviewScore",
+    "totalScore",
+    "selectionStatus",
+    "reportingStatus",
+    "studentId",
+    "submittedAt",
+    "approvedAt",
+    "approvedBy"
+  ],
+  "ADMISSION_DOCUMENTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "admissionId",
+    "documentType",
+    "documentName",
+    "fileUrl",
+    "verified",
+    "verifiedBy",
+    "verifiedAt",
+    "remark"
+  ],
+  "ADMISSION_EXAMS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "academicYear",
+    "admissionLevel",
+    "examName",
+    "examDate",
+    "examStartTime",
+    "examEndTime",
+    "examRoom",
+    "maxScore",
+    "weight",
+    "isActive"
+  ],
+  "ADMISSION_RESULTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "admissionId",
+    "examId",
+    "examScore",
+    "interviewScore",
+    "totalScore",
+    "rankNo",
+    "selectionStatus",
+    "announcementDate"
+  ],
+  "CURRICULA": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "curriculumCode",
+    "curriculumName",
+    "curriculumLevel",
+    "startAcademicYear",
+    "endAcademicYear",
+    "curriculumType",
+    "documentUrl",
+    "isCurrent",
+    "approvedDate"
+  ],
+  "CURRICULUM_VERSIONS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "curriculumId",
+    "versionCode",
+    "versionName",
+    "effectiveAcademicYear",
+    "documentUrl",
+    "changeSummary",
+    "isActive"
+  ],
+  "LEARNING_AREAS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "areaCode",
+    "areaName",
+    "areaNameEn",
+    "sortOrder",
+    "curriculumId"
+  ],
+  "SUBJECTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "subjectCode",
+    "subjectName",
+    "subjectNameEn",
+    "learningAreaId",
+    "subjectType",
+    "levelRange",
+    "credit",
+    "totalHours",
+    "semesterHours",
+    "isCore",
+    "isElective",
+    "prerequisiteSubjectIds",
+    "gradingType",
+    "description",
+    "curriculumId",
+    "isActive"
+  ],
+  "CURRICULUM_SUBJECTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "curriculumId",
+    "academicYear",
+    "level",
+    "subjectId",
+    "subjectType",
+    "termNo",
+    "credit",
+    "hours",
+    "requiredForGraduation"
+  ],
+  "STUDY_PLANS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "planCode",
+    "planName",
+    "levelStart",
+    "levelEnd",
+    "curriculumId",
+    "academicYearStart",
+    "academicYearEnd",
+    "description",
+    "isActive"
+  ],
+  "STUDY_PLAN_SUBJECTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studyPlanId",
+    "subjectId",
+    "level",
+    "termNo",
+    "credit",
+    "hours",
+    "subjectType",
+    "isRequired",
+    "sortOrder"
+  ],
+  "GRADUATION_REQUIREMENTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "curriculumId",
+    "level",
+    "requirementCode",
+    "requirementName",
+    "minimumCredits",
+    "minimumHours",
+    "requiredSubjectType",
+    "minimumGpa",
+    "isRequired",
+    "ruleJson"
+  ],
+  "GRADE_SCALE": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "scaleCode",
+    "scaleName",
+    "curriculumId",
+    "minScore",
+    "maxScore",
+    "gradeLabel",
+    "gradePoint",
+    "passStatus",
+    "sortOrder"
+  ],
+  "CLASSROOMS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "academicYear",
+    "level",
+    "className",
+    "roomNo",
+    "homeroomTeacherId",
+    "capacity",
+    "studyPlanId",
+    "building",
+    "floor",
+    "isActive"
+  ],
+  "CLASS_MEMBERSHIPS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "classroomId",
+    "academicYear",
+    "level",
+    "className",
+    "startDate",
+    "endDate",
+    "membershipStatus"
+  ],
+  "COURSE_SECTIONS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "academicYear",
+    "termCode",
+    "subjectId",
+    "sectionCode",
+    "sectionName",
+    "level",
+    "classroomId",
+    "studyPlanId",
+    "teacherId",
+    "maxStudents",
+    "registeredCount",
+    "roomId",
+    "dayPattern",
+    "isActive"
+  ],
+  "REGISTRATIONS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "registrationNo",
+    "studentId",
+    "academicYear",
+    "termCode",
+    "subjectId",
+    "courseSectionId",
+    "subjectCode",
+    "subjectName",
+    "credit",
+    "subjectType",
+    "registrationDate",
+    "registrationStatus",
+    "withdrawalDate",
+    "approvedBy"
+  ],
+  "REGISTRATION_CHANGES": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "registrationId",
+    "studentId",
+    "oldSubjectId",
+    "newSubjectId",
+    "changeType",
+    "requestDate",
+    "reason",
+    "approvedBy",
+    "approvedAt"
+  ],
+  "TIMETABLES": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "academicYear",
+    "termCode",
+    "level",
+    "classroomId",
+    "className",
+    "timetableName",
+    "effectiveDate",
+    "endDate",
+    "isPublished"
+  ],
+  "TIMETABLE_ENTRIES": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "timetableId",
+    "dayOfWeek",
+    "periodNo",
+    "startTime",
+    "endTime",
+    "subjectId",
+    "courseSectionId",
+    "teacherId",
+    "roomId",
+    "classroomId"
+  ],
+  "ROOMS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "roomCode",
+    "roomName",
+    "roomType",
+    "building",
+    "floor",
+    "capacity",
+    "equipment",
+    "isAvailable"
+  ],
+  "TEACHER_ASSIGNMENTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "teacherId",
+    "courseSectionId",
+    "subjectId",
+    "academicYear",
+    "termCode",
+    "classroomId",
+    "assignmentRole",
+    "hoursPerWeek"
+  ],
+  "ATTENDANCE": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "termCode",
+    "subjectId",
+    "courseSectionId",
+    "classroomId",
+    "attendanceDate",
+    "periodNo",
+    "attendanceStatus",
+    "teacherId",
+    "recordedAt",
+    "verifiedBy",
+    "reason"
+  ],
+  "ATTENDANCE_SUMMARIES": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "termCode",
+    "subjectId",
+    "courseSectionId",
+    "totalPeriods",
+    "presentPeriods",
+    "latePeriods",
+    "absentPeriods",
+    "leavePeriods",
+    "attendancePercent",
+    "calculatedAt"
+  ],
+  "ASSESSMENT_SCHEMES": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "academicYear",
+    "termCode",
+    "subjectId",
+    "courseSectionId",
+    "teacherId",
+    "schemeName",
+    "totalScore",
+    "passScore",
+    "gradingRuleJson",
+    "isLocked"
+  ],
+  "ASSESSMENT_ITEMS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "schemeId",
+    "academicYear",
+    "termCode",
+    "subjectId",
+    "courseSectionId",
+    "teacherId",
+    "itemName",
+    "itemType",
+    "maxScore",
+    "weight",
+    "assessmentDate",
+    "sortOrder",
+    "isPublished"
+  ],
+  "SCORES": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "assessmentItemId",
+    "schemeId",
+    "academicYear",
+    "termCode",
+    "subjectId",
+    "courseSectionId",
+    "teacherId",
+    "score",
+    "maxScore",
+    "scoreDate",
+    "isAbsent",
+    "remark",
+    "verifiedBy"
+  ],
+  "GRADE_RESULTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "termCode",
+    "subjectId",
+    "courseSectionId",
+    "teacherId",
+    "totalScore",
+    "gradeLabel",
+    "gradePoint",
+    "resultCode",
+    "credit",
+    "creditEarned",
+    "attendancePercent",
+    "assessmentStatus",
+    "submittedAt",
+    "approvedAt",
+    "approvedBy",
+    "isLocked",
+    "revisionNo"
+  ],
+  "GRADE_APPROVALS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "gradeResultId",
+    "studentId",
+    "subjectId",
+    "academicYear",
+    "termCode",
+    "workflowStep",
+    "approverUserId",
+    "decision",
+    "decisionDate",
+    "reason"
+  ],
+  "GRADE_IMPROVEMENT_CASES": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "termCode",
+    "subjectId",
+    "gradeResultId",
+    "originalResultCode",
+    "improvementType",
+    "caseStatus",
+    "assignedTeacherId",
+    "openedDate",
+    "dueDate",
+    "completedDate",
+    "finalResultCode",
+    "approvedBy"
+  ],
+  "GRADE_IMPROVEMENT_ACTIVITIES": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "caseId",
+    "studentId",
+    "teacherId",
+    "activityDate",
+    "activityType",
+    "description",
+    "score",
+    "resultCode",
+    "evidenceUrl",
+    "verifiedBy"
+  ],
+  "STUDENT_ACTIVITY_RESULTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "termCode",
+    "activityCode",
+    "activityName",
+    "activityType",
+    "resultCode",
+    "hours",
+    "teacherId",
+    "approvedBy"
+  ],
+  "CHARACTER_ASSESSMENTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "termCode",
+    "assessmentLevel",
+    "resultCode",
+    "assessorId",
+    "assessmentDate",
+    "detailJson"
+  ],
+  "READING_THINKING_ASSESSMENTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "termCode",
+    "assessmentLevel",
+    "resultCode",
+    "assessorId",
+    "assessmentDate",
+    "detailJson"
+  ],
+  "COMPETENCY_ASSESSMENTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "termCode",
+    "competencyCode",
+    "competencyName",
+    "assessmentLevel",
+    "resultCode",
+    "assessorId",
+    "assessmentDate",
+    "detailJson"
+  ],
+  "STUDENT_CREDITS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "termCode",
+    "subjectId",
+    "subjectCode",
+    "credit",
+    "creditEarned",
+    "resultCode",
+    "curriculumId"
+  ],
+  "GRADUATION_AUDITS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "level",
+    "curriculumId",
+    "auditStatus",
+    "totalCredits",
+    "earnedCredits",
+    "requiredCredits",
+    "gpa",
+    "outstandingItemsJson",
+    "auditedAt",
+    "auditedBy"
+  ],
+  "GRADUATES": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "graduationLevel",
+    "graduationDate",
+    "approvalDate",
+    "certificateNo",
+    "transcriptNo",
+    "graduationStatus",
+    "gpa",
+    "curriculumId",
+    "approvedBy"
+  ],
+  "ACADEMIC_DOCUMENTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "documentType",
+    "documentNo",
+    "academicYear",
+    "issuedDate",
+    "purpose",
+    "requestId",
+    "fileUrl",
+    "issuedBy",
+    "verifiedCode",
+    "documentStatus"
+  ],
+  "DOCUMENT_COUNTERS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "documentType",
+    "academicYear",
+    "prefix",
+    "lastNumber",
+    "numberFormat"
+  ],
+  "TEACHERS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "teacherCode",
+    "nationalId",
+    "title",
+    "firstName",
+    "lastName",
+    "gender",
+    "birthDate",
+    "phone",
+    "email",
+    "position",
+    "academicStanding",
+    "learningAreaId",
+    "employmentType",
+    "startDate",
+    "photoUrl",
+    "userId",
+    "isActive"
+  ],
+  "TEACHER_PROFILES": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "teacherId",
+    "educationJson",
+    "expertise",
+    "certificationsJson",
+    "trainingJson",
+    "biography",
+    "portfolioUrl"
+  ],
+  "TEACHER_WORKLOAD": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "teacherId",
+    "academicYear",
+    "termCode",
+    "teachingHours",
+    "homeroomHours",
+    "administrativeHours",
+    "otherHours",
+    "totalHours",
+    "approvedBy"
+  ],
+  "ADVISOR_ASSIGNMENTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "teacherId",
+    "classroomId",
+    "academicYear",
+    "termCode",
+    "level",
+    "className",
+    "studentIdsJson",
+    "isPrimary"
+  ],
+  "COUNSELING_RECORDS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "advisorTeacherId",
+    "recordDate",
+    "topic",
+    "summary",
+    "actionPlan",
+    "followUpDate",
+    "followUpStatus",
+    "confidentialLevel"
+  ],
+  "STUDENT_ALERTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "termCode",
+    "alertType",
+    "severity",
+    "alertTitle",
+    "alertDetail",
+    "sourceModule",
+    "assignedTo",
+    "alertStatus",
+    "detectedAt",
+    "resolvedAt",
+    "resolutionNote"
+  ],
+  "STUDENT_PORTFOLIOS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "studentId",
+    "academicYear",
+    "portfolioTitle",
+    "portfolioDescription",
+    "coverImageUrl",
+    "visibility",
+    "approvedBy",
+    "publishedAt"
+  ],
+  "PORTFOLIO_ITEMS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "portfolioId",
+    "studentId",
+    "itemTitle",
+    "itemType",
+    "description",
+    "imageUrl",
+    "fileUrl",
+    "achievementDate",
+    "issuer",
+    "awardLevel",
+    "verificationStatus",
+    "sortOrder"
+  ],
+  "SCHOOL_EVENTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "eventTitle",
+    "eventType",
+    "startDate",
+    "endDate",
+    "location",
+    "description",
+    "coverImageUrl",
+    "organizer",
+    "targetAudience",
+    "isPublished"
+  ],
+  "ACADEMIC_CALENDAR": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "academicYear",
+    "termCode",
+    "eventTitle",
+    "eventType",
+    "startDate",
+    "endDate",
+    "description",
+    "targetRoles",
+    "isAllDay",
+    "reminderAt"
+  ],
+  "NOTIFICATIONS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "recipientUserId",
+    "recipientRole",
+    "title",
+    "message",
+    "notificationType",
+    "referenceModule",
+    "referenceId",
+    "isRead",
+    "readAt",
+    "scheduledAt",
+    "sentAt"
+  ],
+  "PARENT_LINKS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "parentUserId",
+    "guardianId",
+    "studentId",
+    "relation",
+    "isVerified",
+    "canViewGrades",
+    "canViewAttendance",
+    "canSubmitRequests"
+  ],
+  "SERVICE_REQUESTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "requestNo",
+    "requestType",
+    "requesterUserId",
+    "requesterRole",
+    "studentId",
+    "subject",
+    "details",
+    "attachmentUrl",
+    "requestStatus",
+    "currentAssignee",
+    "submittedAt",
+    "completedAt",
+    "resultMessage"
+  ],
+  "SERVICE_REQUEST_HISTORY": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "requestId",
+    "fromStatus",
+    "toStatus",
+    "actionBy",
+    "actionDate",
+    "actionNote",
+    "assignedTo"
+  ],
+  "LEC_DATA_CHECKS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "academicYear",
+    "termCode",
+    "checkType",
+    "recordCount",
+    "errorCount",
+    "warningCount",
+    "checkResultJson",
+    "checkedAt",
+    "checkedBy"
+  ],
+  "LEC_EXPORT_JOBS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "academicYear",
+    "termCode",
+    "exportType",
+    "fileName",
+    "fileUrl",
+    "recordCount",
+    "exportStatus",
+    "generatedAt",
+    "generatedBy",
+    "remarks"
+  ],
+  "REPORT_SNAPSHOTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "reportCode",
+    "reportName",
+    "academicYear",
+    "termCode",
+    "filtersJson",
+    "dataJson",
+    "generatedAt",
+    "generatedBy"
+  ],
+  "IMAGE_UPLOADS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "ownerModule",
+    "ownerRecordId",
+    "fileName",
+    "mimeType",
+    "fileSize",
+    "imageUrl",
+    "displayUrl",
+    "deleteUrl",
+    "imageId",
+    "uploadedBy",
+    "uploadedAt"
+  ],
+  "AUTH_ATTEMPTS": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "status",
+    "notes",
+    "deletedAt",
+    "deletedBy",
+    "deletionReason",
+    "emailKey",
+    "attemptCount",
+    "lastAttemptAt",
+    "lockedUntil"
+  ]
+};
+
+    const MODULE_GROUPS = [
+      { label: 'ภาพรวม', codes: ['dashboard'] },
+      { label: 'งานทะเบียนและวิชาการ', codes: ['students','admissions','curriculum','registration','timetable','attendance','assessment','gradeImprovement','graduation'] },
+      { label: 'งานบุคลากรและผู้เรียน', codes: ['teachers','portal','studentSupport','portfolio','services','calendar'] },
+      { label: 'สารสนเทศและต้นสังกัด', codes: ['analytics','reports','lec'] },
+      { label: 'บริหารจัดการระบบ', codes: ['settings','system'] }
+    ];
+
+    const MODULE_ICONS = {
+      dashboard:'fa-chart-pie', students:'fa-user-graduate', admissions:'fa-user-plus', curriculum:'fa-book-open',
+      registration:'fa-clipboard-list', timetable:'fa-calendar-days', attendance:'fa-calendar-check', assessment:'fa-marker',
+      gradeImprovement:'fa-arrows-rotate', graduation:'fa-graduation-cap', analytics:'fa-chart-line', teachers:'fa-chalkboard-user',
+      portal:'fa-users', reports:'fa-file-lines', settings:'fa-gear', lec:'fa-building-columns', calendar:'fa-calendar',
+      portfolio:'fa-folder-open', studentSupport:'fa-hand-holding-heart', services:'fa-file-signature', system:'fa-shield-halved'
+    };
+
+    const TABLE_LABELS = {
+      STUDENTS:'ทะเบียนนักเรียน',GUARDIANS:'ผู้ปกครอง',STUDENT_GUARDIANS:'ความสัมพันธ์นักเรียน–ผู้ปกครอง',STUDENT_EDUCATION_HISTORY:'ประวัติการศึกษา',STUDENT_STATUS_HISTORY:'ประวัติสถานะนักเรียน',STUDENT_DOCUMENTS:'เอกสารนักเรียน',
+      ADMISSIONS:'ใบสมัคร',ADMISSION_DOCUMENTS:'เอกสารผู้สมัคร',ADMISSION_EXAMS:'การสอบคัดเลือก',ADMISSION_RESULTS:'ผลการคัดเลือก',
+      CURRICULA:'หลักสูตร',CURRICULUM_VERSIONS:'ฉบับหลักสูตร',LEARNING_AREAS:'กลุ่มสาระการเรียนรู้',SUBJECTS:'รายวิชา',CURRICULUM_SUBJECTS:'รายวิชาในหลักสูตร',STUDY_PLANS:'แผนการเรียน',STUDY_PLAN_SUBJECTS:'รายวิชาในแผนการเรียน',GRADUATION_REQUIREMENTS:'เกณฑ์สำเร็จการศึกษา',GRADE_SCALE:'เกณฑ์การตัดเกรด',
+      CLASSROOMS:'ห้องเรียน',CLASS_MEMBERSHIPS:'สมาชิกห้องเรียน',COURSE_SECTIONS:'กลุ่มเรียน',REGISTRATIONS:'การลงทะเบียน',REGISTRATION_CHANGES:'ประวัติเปลี่ยนแปลงการลงทะเบียน',
+      TIMETABLES:'ตารางเรียน/ตารางสอน',TIMETABLE_ENTRIES:'รายการคาบเรียน',ROOMS:'ห้องเรียน/ห้องปฏิบัติการ',TEACHER_ASSIGNMENTS:'การมอบหมายครู',
+      ATTENDANCE:'บันทึกเวลาเรียน',ATTENDANCE_SUMMARIES:'สรุปเวลาเรียน',
+      ASSESSMENT_SCHEMES:'รูปแบบการวัดผล',ASSESSMENT_ITEMS:'รายการประเมิน',SCORES:'คะแนน',GRADE_RESULTS:'ผลการเรียน',GRADE_APPROVALS:'การอนุมัติผลการเรียน',STUDENT_ACTIVITY_RESULTS:'ผลกิจกรรมพัฒนาผู้เรียน',CHARACTER_ASSESSMENTS:'คุณลักษณะอันพึงประสงค์',READING_THINKING_ASSESSMENTS:'การอ่านคิดวิเคราะห์และเขียน',COMPETENCY_ASSESSMENTS:'สมรรถนะสำคัญ',
+      GRADE_IMPROVEMENT_CASES:'รายการแก้ไขผลการเรียน',GRADE_IMPROVEMENT_ACTIVITIES:'กิจกรรมแก้ไขผลการเรียน',
+      STUDENT_CREDITS:'หน่วยกิตสะสม',GRADUATION_AUDITS:'ตรวจสอบการจบ',GRADUATES:'ผู้สำเร็จการศึกษา',ACADEMIC_DOCUMENTS:'เอกสารทางการศึกษา',DOCUMENT_COUNTERS:'เลขที่เอกสาร',
+      REPORT_SNAPSHOTS:'ภาพรวมรายงาน',TEACHERS:'ทะเบียนครู',TEACHER_PROFILES:'ประวัติครู',TEACHER_WORKLOAD:'ภาระงานสอน',ADVISOR_ASSIGNMENTS:'ครูที่ปรึกษา',COUNSELING_RECORDS:'การให้คำปรึกษา',STUDENT_ALERTS:'แจ้งเตือนนักเรียน',
+      PARENT_LINKS:'บัญชีผู้ปกครอง',NOTIFICATIONS:'การแจ้งเตือน',LEC_DATA_CHECKS:'ตรวจสอบข้อมูล LEC',LEC_EXPORT_JOBS:'ส่งออกข้อมูล LEC',SYSTEM_SETTINGS:'ตั้งค่าระบบ',SCHOOL_PROFILE:'ข้อมูลสถานศึกษา',USERS:'บัญชีผู้ใช้งาน',ROLES:'บทบาทผู้ใช้งาน',PERMISSIONS:'รายการสิทธิ์',ROLE_PERMISSIONS:'สิทธิ์ตามบทบาท',
+      ACADEMIC_YEARS:'ปีการศึกษา',ACADEMIC_TERMS:'ภาคเรียน',ACADEMIC_CALENDAR:'ปฏิทินวิชาการ',SCHOOL_EVENTS:'กิจกรรมโรงเรียน',STUDENT_PORTFOLIOS:'แฟ้มสะสมผลงาน',PORTFOLIO_ITEMS:'ผลงาน/เกียรติบัตร',SERVICE_REQUESTS:'คำร้องออนไลน์',SERVICE_REQUEST_HISTORY:'ประวัติคำร้อง',AUDIT_LOGS:'ประวัติการใช้งาน',IMAGE_UPLOADS:'ประวัติการอัปโหลดรูปภาพ',AUTH_ATTEMPTS:'ประวัติการเข้าสู่ระบบ'
+    };
+
+    const FIELD_LABELS = {
+      id:'รหัสรายการ',studentCode:'รหัสนักเรียน',nationalId:'เลขประจำตัวประชาชน',title:'คำนำหน้า',firstName:'ชื่อ',lastName:'นามสกุล',firstNameEn:'ชื่อภาษาอังกฤษ',lastNameEn:'นามสกุลภาษาอังกฤษ',nickname:'ชื่อเล่น',gender:'เพศ',birthDate:'วันเดือนปีเกิด',bloodGroup:'หมู่เลือด',religion:'ศาสนา',nationality:'สัญชาติ',ethnicity:'เชื้อชาติ',phone:'โทรศัพท์',email:'อีเมล',lineId:'LINE ID',addressNo:'บ้านเลขที่',villageNo:'หมู่ที่',road:'ถนน',subDistrict:'ตำบล/แขวง',district:'อำเภอ/เขต',province:'จังหวัด',postalCode:'รหัสไปรษณีย์',currentAddress:'ที่อยู่ปัจจุบัน',photoUrl:'รูปประจำตัว',admissionYear:'ปีที่เข้าเรียน',admissionLevel:'ระดับชั้นที่สมัคร',currentLevel:'ระดับชั้นปัจจุบัน',currentClassroomId:'รหัสห้องเรียน',currentClassName:'ชื่อห้องเรียน',studyPlanId:'แผนการเรียน',studentType:'ประเภทนักเรียน',previousSchool:'โรงเรียนเดิม',previousSchoolProvince:'จังหวัดโรงเรียนเดิม',specialNeeds:'ความต้องการจำเป็นพิเศษ',medicalNotes:'ข้อมูลสุขภาพที่จำเป็น',emergencyContactName:'ชื่อผู้ติดต่อฉุกเฉิน',emergencyContactRelation:'ความสัมพันธ์',emergencyContactPhone:'โทรศัพท์ฉุกเฉิน',enrollmentDate:'วันที่เข้าเรียน',graduationDate:'วันที่สำเร็จการศึกษา',studentStatus:'สถานะนักเรียน',
+      applicationNo:'เลขที่ใบสมัคร',academicYear:'ปีการศึกษา',termCode:'ภาคเรียน',admissionType:'ประเภทการรับสมัคร',address:'ที่อยู่',previousGpa:'ผลการเรียนเดิม',guardianName:'ชื่อผู้ปกครอง',guardianRelation:'ความสัมพันธ์กับผู้สมัคร',guardianPhone:'โทรศัพท์ผู้ปกครอง',documentStatus:'สถานะเอกสาร',examNumber:'เลขที่สอบ',examScore:'คะแนนสอบ',interviewScore:'คะแนนสัมภาษณ์',totalScore:'คะแนนรวม',selectionStatus:'ผลการคัดเลือก',reportingStatus:'สถานะรายงานตัว',studentId:'นักเรียน',teacherId:'ครูผู้สอน',guardianId:'ผู้ปกครอง',
+      subjectCode:'รหัสวิชา',subjectName:'ชื่อรายวิชา',subjectNameEn:'ชื่อวิชาภาษาอังกฤษ',learningAreaId:'กลุ่มสาระ',subjectType:'ประเภทรายวิชา',levelRange:'ระดับชั้น',credit:'หน่วยกิต',totalHours:'เวลาเรียนรวม',semesterHours:'ชั่วโมงต่อภาคเรียน',isCore:'รายวิชาพื้นฐาน',isElective:'รายวิชาเลือก',prerequisiteSubjectIds:'รหัสวิชาที่ต้องผ่านก่อน',gradingType:'รูปแบบการวัดผล',description:'รายละเอียด',curriculumId:'หลักสูตร',isActive:'เปิดใช้งาน',
+      classroomId:'ห้องเรียน',classroomName:'ชื่อห้อง',className:'ชื่อชั้น/ห้อง',level:'ระดับชั้น',roomId:'ห้อง',roomName:'ชื่อห้อง',courseSectionId:'กลุ่มเรียน',registrationStatus:'สถานะลงทะเบียน',attendanceDate:'วันที่เรียน',periodNo:'คาบเรียน',attendanceStatus:'สถานะเวลาเรียน',reason:'เหตุผล',
+      score:'คะแนน',scoreValue:'คะแนนที่ได้',maxScore:'คะแนนเต็ม',weight:'น้ำหนักคะแนน',gradeLabel:'ผลการเรียน',gradePoint:'ค่าระดับผลการเรียน',resultCode:'รหัสผลการเรียน',totalScore:'คะแนนรวม',percentage:'ร้อยละ',approvedAt:'วันที่อนุมัติ',approvedBy:'ผู้อนุมัติ',isLocked:'ล็อกผลการเรียน',
+      displayName:'ชื่อที่แสดง',username:'ชื่อผู้ใช้',roleCodes:'รหัสบทบาท (JSON)',password:'รหัสผ่าน',requestType:'ประเภทคำร้อง',requestStatus:'สถานะคำร้อง',requestNo:'เลขที่คำร้อง',requesterUserId:'ผู้ยื่นคำร้อง',details:'รายละเอียดคำร้อง',attachmentUrl:'เอกสารแนบ',
+      portfolioTitle:'ชื่อผลงาน',portfolioType:'ประเภทผลงาน',achievementDate:'วันที่ได้รับผลงาน',awardLevel:'ระดับรางวัล',url:'ลิงก์ผลงาน',documentType:'ประเภทเอกสาร',documentNo:'เลขที่เอกสาร',prefix:'คำนำหน้าเลขที่',minimumCredits:'หน่วยกิตขั้นต่ำ',minimumGpa:'เกรดเฉลี่ยขั้นต่ำ',requirementCode:'รหัสเกณฑ์',requirementName:'ชื่อเกณฑ์',
+      createdAt:'วันที่สร้างรายการ',updatedAt:'วันที่ปรับปรุง',createdBy:'ผู้บันทึก',updatedBy:'ผู้แก้ไข',status:'สถานะรายการ',notes:'หมายเหตุ',deletedAt:'วันที่ลบ',deletedBy:'ผู้ลบ',deletionReason:'เหตุผลการลบ'
+    };
+
+    const HIDDEN_FIELDS = new Set(['passwordHash','passwordSalt','deletedAt','deletedBy','deletionReason','failedLoginCount','lockedUntil','sessionVersion','createdBy','updatedBy']);
+    const BASE_FIELDS = new Set(['id','createdAt','updatedAt','createdBy','updatedBy','deletedAt','deletedBy','deletionReason']);
+    const IMAGE_FIELDS = new Set(['photoUrl','imageUrl','attachmentImageUrl','logoUrl','thumbnailUrl','evidenceImageUrl','evidenceUrl','coverImageUrl']);
+    const REQUIRED_FIELDS = {
+      STUDENTS:['studentCode','firstName','lastName','currentLevel'], SUBJECTS:['subjectCode','subjectName'],
+      TEACHERS:['firstName','lastName'], ADMISSIONS:['firstName','lastName','academicYear','admissionLevel'],
+      CLASSROOMS:['classroomName','level'], USERS:['email','displayName']
+    };
+
+    const STATUS_LABELS = {ACTIVE:'ใช้งาน',INACTIVE:'ไม่ใช้งาน',PENDING:'รอดำเนินการ',APPROVED:'อนุมัติ',REJECTED:'ไม่อนุมัติ',COMPLETED:'เสร็จสิ้น',CANCELLED:'ยกเลิก',PASS:'ผ่าน',FAIL:'ไม่ผ่าน',PRESENT:'มาเรียน',ABSENT:'ขาด',LATE:'มาสาย',LEAVE:'ลา'};
+    const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
+
+    function escapeHtml(value) {
+      return String(value === null || value === undefined ? '' : value)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+    function labelOf(field) { return FIELD_LABELS[field] || field.replace(/([A-Z])/g,' $1').replace(/^./,c=>c.toUpperCase()); }
+    function displayValue(value, field) {
+      if (value === null || value === undefined || value === '') return '—';
+      if (field === 'status' || /Status$/.test(field) || field === 'resultCode') return STATUS_LABELS[String(value).toUpperCase()] || value;
+      if (typeof value === 'boolean') return value ? 'ใช่' : 'ไม่ใช่';
+      if (typeof value === 'string' && value.length > 120) return value.slice(0,117) + '…';
+      return value;
+    }
+    function friendlyError(message) {
+      const text = String(message || 'เชื่อมต่อข้อมูลไม่สำเร็จ');
+      const technical = /(Exception|Error:|TypeError|ReferenceError|SyntaxError|Stack|Google Sheets|SpreadsheetApp|ScriptApp|CacheService|LockService|API Key|HTTP \d{3}|CORS|quota|timeout|undefined|null pointer)/i;
+      if (technical.test(text)) return 'เชื่อมต่อข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง';
+      const allowed = ['อีเมลหรือรหัสผ่านไม่ถูกต้อง','เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่','คุณไม่มีสิทธิ์ดำเนินการรายการนี้','ไม่มีสิทธิ์เข้าถึงข้อมูลนี้','ไม่มีสิทธิ์แก้ไขข้อมูลนี้','ไม่มีสิทธิ์ลบข้อมูลนี้','ไม่พบข้อมูลที่ต้องการ','ไม่พบข้อมูลที่ต้องการแก้ไข','ไม่พบรายการที่ต้องการ','กรุณากรอกข้อมูลให้ครบถ้วน','ข้อมูลมีขนาดใหญ่เกินไป กรุณาแบ่งรายการแล้วลองใหม่','ไฟล์มีขนาดเกิน 5 MB','ชนิดไฟล์ไม่รองรับ กรุณาเลือก JPG, PNG หรือ WEBP'];
+      if (allowed.includes(text)) return text;
+      return text.length <= 100 ? text : 'ไม่สามารถดำเนินการได้ กรุณาตรวจสอบข้อมูลแล้วลองใหม่';
+    }
+    function notify(icon,title,text) {
+      return Swal.fire({icon,title,text: text || '',confirmButtonText:'ตกลง',buttonsStyling:true,confirmButtonColor:'#17365d'});
+    }
+    async function confirmAction(title,text,confirmText='ยืนยัน') {
+      const result = await Swal.fire({icon:'question',title,text,showCancelButton:true,confirmButtonText:confirmText,cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',cancelButtonColor:'#64748b',reverseButtons:true});
+      return result.isConfirmed;
+    }
+    function setBusy(button,busy,label) {
+      if (!button) return;
+      if (busy) { button.dataset.oldLabel=button.innerHTML; button.disabled=true; button.innerHTML='<i class="fa-solid fa-circle-notch fa-spin"></i> '+(label||'กำลังดำเนินการ'); }
+      else { button.disabled=false; button.innerHTML=button.dataset.oldLabel || button.innerHTML; delete button.dataset.oldLabel; }
+    }
+    function setConnection(ok,text) {
+      const el=document.getElementById('connectionStatus');
+      if(!el)return;el.className='connection-status '+(ok?'ok':'off');el.innerHTML='<i class="fa-solid '+(ok?'fa-circle-check':'fa-circle-exclamation')+'"></i> '+escapeHtml(text || (ok?'เชื่อมต่อแล้ว':'ยังไม่เชื่อมต่อ'));
+    }
+
+    async function apiRequest(action,data={},options={}) {
+      if(!ARAMS_API.url) {
+        const saved=await Swal.fire({title:'ตั้งค่า URL ของ API',text:'วาง Web App URL ของ Google Apps Script ที่ลงท้ายด้วย /exec',input:'url',inputPlaceholder:'https://script.google.com/macros/s/.../exec',showCancelButton:true,confirmButtonText:'บันทึก',cancelButtonText:'ยกเลิก',inputValidator:value=>!value||!/^https:\/\/.+\/exec(?:\?.*)?$/.test(value)?'กรุณาระบุ Web App URL ให้ถูกต้อง':undefined});
+        if(!saved.isConfirmed)return {success:false,message:'ยังไม่ได้กำหนด URL ของ API'};
+        ARAMS_API.url=saved.value.trim();localStorage.setItem('ARAMS_API_URL',ARAMS_API.url);
+      }
+      const body={action,token:options.token!==undefined?options.token:ARAMS_API.token,data:data||{}};
+      try {
+        const response=await fetch(ARAMS_API.url,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body),cache:'no-store'});
+        if(!response.ok)throw new Error('HTTP '+response.status);
+        const text=await response.text();
+        let result;try{result=JSON.parse(text);}catch(_){throw new Error('Invalid response');}
+        if(!result||typeof result.success!=='boolean')throw new Error('Invalid response format');
+        if(!result.success) {
+          const msg=friendlyError(result.message);
+          if(/เซสชันหมดอายุ/.test(msg)){clearSession();}
+          return {...result,message:msg};
+        }
+        return result;
+      } catch(error) {
+        console.error('ARAMS request failed:',action,error);
+        return {success:false,message:'เชื่อมต่อข้อมูลไม่สำเร็จ กรุณาตรวจสอบการเชื่อมต่อแล้วลองใหม่'};
+      }
+    }
+
+    function clearSession() {
+      ARAMS_API.token='';ARAMS_API.user=null;ARAMS_API.permissions=[];
+      sessionStorage.removeItem('ARAMS_TOKEN');
+      document.getElementById('appShell').classList.add('hidden');
+      document.getElementById('loginScreen').classList.remove('hidden');
+    }
+    async function login(event) {
+      event.preventDefault();const form=event.currentTarget;const button=document.getElementById('loginButton');
+      const data={email:form.email.value.trim(),password:form.password.value};setBusy(button,true,'กำลังเข้าสู่ระบบ');
+      const result=await apiRequest('auth.login',data,{token:''});setBusy(button,false);
+      if(!result.success){await notify('error','เข้าสู่ระบบไม่สำเร็จ',result.message);return;}
+      ARAMS_API.token=result.data.token;sessionStorage.setItem('ARAMS_TOKEN',ARAMS_API.token);ARAMS_API.user=result.data.user;
+      form.reset();await loadApplication();
+    }
+    async function logout() {
+      const yes=await confirmAction('ออกจากระบบ','ต้องการออกจากระบบ ARAMS ใช่หรือไม่?','ออกจากระบบ');if(!yes)return;
+      await apiRequest('auth.logout',{});clearSession();
+    }
+    async function restoreSession() {
+      if(!ARAMS_API.token)return false;
+      const result=await apiRequest('auth.me',{});if(!result.success){clearSession();return false;}
+      ARAMS_API.user=result.data.user;ARAMS_API.permissions=result.data.permissions||[];return true;
+    }
+    async function loadApplication() {
+      document.getElementById('loginScreen').classList.add('hidden');document.getElementById('appShell').classList.remove('hidden');
+      document.getElementById('sideUserName').textContent=ARAMS_API.user.displayName||ARAMS_API.user.email;
+      document.getElementById('topUserName').textContent=ARAMS_API.user.displayName||ARAMS_API.user.email;
+      document.getElementById('sideUserRole').textContent=(ARAMS_API.user.roleCodes||[]).join(', ')||'ผู้ใช้งาน';
+      if(ARAMS_API.user.mustChangePassword){await openChangePassword(true);return;}
+      const [modules,status]=await Promise.all([apiRequest('system.modules'),apiRequest('system.status',{}, {token:''})]);
+      if(!modules.success){await notify('error','ไม่สามารถโหลดเมนูได้',modules.message);return;}
+      ARAMS_API.modules=Array.isArray(modules.data)?Object.fromEntries(modules.data.map(item=>[item.code,{...(MODULES[item.code]||{}),...item}])):(modules.data||{});setConnection(true,'เชื่อมต่อแล้ว');
+      if(status.success&&status.data){document.getElementById('currentAcademicLabel').textContent='ARAMS '+(status.data.version||'');}
+      renderNavigation();await navigate('dashboard');
+    }
+    function toggleSidebar(force) {
+      const sidebar=document.getElementById('sidebar'),overlay=document.getElementById('mobileOverlay');
+      const open=force===undefined?!sidebar.classList.contains('open'):!!force;
+      sidebar.classList.toggle('open',open);overlay.classList.toggle('show',open);
+    }
+
+    function renderNavigation() {
+      const nav=document.getElementById('sideNav');let html='';
+      MODULE_GROUPS.forEach(group=>{
+        const available=group.codes.filter(code=>code==='dashboard'?Boolean(ARAMS_API.modules.dashboard):Boolean(ARAMS_API.modules[code]));
+        if(!available.length)return;
+        html+='<div class="nav-section">'+escapeHtml(group.label)+'</div>';
+        available.forEach(code=>{
+          const m=ARAMS_API.modules[code]||MODULES[code];if(!m)return;
+          html+='<button class="nav-link" data-nav="'+escapeHtml(code)+'" onclick="navigate(\''+escapeHtml(code)+'\')"><i class="fa-solid '+(MODULE_ICONS[code]||'fa-folder')+'"></i><span>'+escapeHtml(m.label||MODULES[code]?.label||code)+'</span></button>';
+        });
+      });
+      nav.innerHTML=html;
+    }
+    function activateNav(code) {
+      document.querySelectorAll('.nav-link[data-nav]').forEach(el=>el.classList.toggle('active',el.dataset.nav===code));
+      const m=ARAMS_API.modules[code]||MODULES[code];document.getElementById('topPageTitle').textContent=m?.label||'ARAMS';
+    }
+    async function navigate(code) {
+      ARAMS_API.currentModule=code;activateNav(code);toggleSidebar(false);
+      if(code==='dashboard'){await renderDashboard();return;}
+      if(code==='analytics'){await renderAnalytics();return;}
+      if(code==='reports'){renderReports();return;}
+      if(code==='settings'){await renderSettings();return;}
+      if(code==='system'){await renderSystem();return;}
+      if(code==='graduation' || code==='assessment' || code==='registration' || code==='admissions' || code==='attendance' || code==='calendar' || code==='lec' || code==='studentSupport' || code==='services'){
+        await renderWorkflowModule(code);return;
+      }
+      await renderDataModule(code);
+    }
+
+    async function renderDashboard() {
+      const root=document.getElementById('pageContent');root.innerHTML='<div class="loading-line"></div>';
+      const result=await apiRequest('system.dashboard',{});if(!result.success){root.innerHTML='<div class="card empty-state">ไม่สามารถโหลดข้อมูลภาพรวมได้</div>';setConnection(false,'เชื่อมต่อข้อมูลไม่สำเร็จ');return;}
+      ARAMS_API.dashboard=result.data||{};const d=ARAMS_API.dashboard,c=d.counts||{},attendance=d.attendance||{};
+      const stats=[['นักเรียนทั้งหมด',c.students,'fa-user-graduate'],['ครูและบุคลากร',c.teachers,'fa-chalkboard-user'],['ผู้สมัครเรียน',c.admissions,'fa-user-plus'],['ห้องเรียน',c.classrooms,'fa-door-open'],['รอส่งผลการเรียน',c.pendingGrades,'fa-file-circle-exclamation'],['ผลการเรียนต้องตรวจสอบ',c.gradeWarnings,'fa-triangle-exclamation'],['รายการแก้ผลการเรียน',c.openGradeImprovements,'fa-arrows-rotate']];
+      const cards=stats.map(x=>'<div class="stat-card"><div class="stat-icon"><i class="fa-solid '+x[2]+'"></i></div><div><div class="stat-label">'+x[0]+'</div><div class="stat-value mono">'+Number(x[1]||0).toLocaleString('th-TH')+'</div></div></div>').join('');
+      const levels=Array.isArray(d.studentsByLevel)?d.studentsByLevel:Object.entries(d.studentsByLevel||{}).map(([level,count])=>({level,count}));const max=Math.max(1,...levels.map(x=>Number(x.count||x.total||0)));
+      const levelHtml=levels.length?levels.map(x=>{const n=Number(x.count||x.total||0);return '<div class="level-row"><strong>'+escapeHtml(x.level||x.currentLevel||'-')+'</strong><div class="bar-track"><div class="bar-fill" style="width:'+Math.max(0,Math.min(100,n/max*100))+'%"></div></div><span class="text-right mono">'+n.toLocaleString('th-TH')+'</span></div>';}).join(''):'<div class="empty-state">ยังไม่มีข้อมูลแยกระดับชั้น</div>';
+      const recent=Array.isArray(d.recentRequests)?d.recentRequests:[];
+      root.innerHTML='<div class="page-title-row"><div><h1 class="page-title">ภาพรวมสถานศึกษา</h1><div class="page-subtitle">ข้อมูลสรุปการบริหารงานทะเบียนและวัดผล ณ '+escapeHtml(new Date().toLocaleString('th-TH'))+'</div></div><div class="quick-actions"><button class="btn btn-outline" onclick="renderDashboard()"><i class="fa-solid fa-rotate"></i> รีเฟรช</button><button class="btn btn-primary" onclick="navigate(\'reports\')"><i class="fa-solid fa-file-pdf"></i> ศูนย์รายงาน</button></div></div><div class="stats-grid">'+cards+'</div><div class="grid-two"><section class="card"><h2 class="card-title"><i class="fa-solid fa-chart-column"></i> จำนวนนักเรียนแยกระดับชั้น</h2><div class="level-bars">'+levelHtml+'</div></section><section class="card"><h2 class="card-title"><i class="fa-solid fa-calendar-check"></i> สถานะการเข้าเรียน</h2><div class="simple-list">'+[['มาเรียน',attendance.PRESENT,'badge-green'],['ขาดเรียน',attendance.ABSENT,'badge-red'],['มาสาย',attendance.LATE,'badge-amber'],['ลา',attendance.LEAVE,'badge-blue']].map(x=>'<div class="simple-list-item"><span>'+x[0]+'</span><strong class="badge '+x[2]+'">'+Number(x[1]||0).toLocaleString('th-TH')+'</strong></div>').join('')+'</div></section></div><section class="card"><h2 class="card-title"><i class="fa-solid fa-inbox"></i> คำร้อง/รายการล่าสุด</h2>'+(recent.length?'<div class="table-wrap"><table class="data-table"><thead><tr><th>เลขที่</th><th>ประเภทคำร้อง</th><th>วันที่ยื่น</th><th>สถานะ</th></tr></thead><tbody>'+recent.slice(0,10).map(r=>'<tr><td>'+escapeHtml(r.requestNo||r.id)+'</td><td>'+escapeHtml(r.requestType||r.subject||'-')+'</td><td>'+escapeHtml(r.submittedAt||r.createdAt||'-')+'</td><td>'+statusBadge(r.requestStatus||r.status)+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">ยังไม่มีรายการคำร้อง</div>')+'</section>';
+    }
+    function statusBadge(value) {
+      const v=String(value||'').toUpperCase();const cls=['ACTIVE','APPROVED','COMPLETED','PASS','PRESENT'].includes(v)?'badge-green':['REJECTED','INACTIVE','ABSENT','FAIL'].includes(v)?'badge-red':['PENDING','LATE','ร','0','มส','มผ'].includes(v)?'badge-amber':'badge-blue';return '<span class="badge '+cls+'">'+escapeHtml(STATUS_LABELS[v]||value||'—')+'</span>';
+    }
+
+    /* ======================================================================
+       GENERIC DATA WORKSPACE: ใช้ Schema 74 ตารางจาก Code.gs โดยตรง
+       ====================================================================== */
+    async function renderDataModule(moduleCode,preferredTable) {
+      const module=ARAMS_API.modules[moduleCode]||MODULES[moduleCode];
+      if(!module){document.getElementById('pageContent').innerHTML='<div class="card empty-state">ไม่พบเมนูที่ต้องการ</div>';return;}
+      const table=preferredTable||ARAMS_API.currentTable||module.defaultTable||module.tables?.[0]||'';
+      if(!table){document.getElementById('pageContent').innerHTML='<div class="card empty-state">เมนูนี้ไม่มีรายการข้อมูล</div>';return;}
+      ARAMS_API.currentModule=moduleCode;ARAMS_API.currentTable=table;ARAMS_API.currentPage=1;ARAMS_API.selectedRows.clear();
+      const tables=(module.tables||[]).map(t=>'<option value="'+escapeHtml(t)+'" '+(t===table?'selected':'')+'>'+escapeHtml(TABLE_LABELS[t]||t)+' ('+escapeHtml(t)+')</option>').join('');
+      const canCreate=Boolean(module.canCreate)&&!module.readOnly;
+      const canDelete=Boolean(module.canDelete)&&!module.readOnly&&table!=='USERS';
+      const root=document.getElementById('pageContent');
+      root.innerHTML='<div class="page-title-row"><div><h1 class="page-title">'+escapeHtml(module.label)+'</h1><div class="page-subtitle">จัดการข้อมูล ตรวจสอบ แก้ไข และติดตามรายการในฐานข้อมูลกลาง</div></div><div class="quick-actions">'+(canCreate?'<button class="btn btn-outline" onclick="openImportDialog()"><i class="fa-solid fa-file-import"></i> นำเข้า CSV</button>':'')+'<button class="btn btn-outline" onclick="exportCurrentCsv()"><i class="fa-solid fa-file-csv"></i> ส่งออก CSV</button>'+(canCreate?'<button class="btn btn-primary" onclick="openRecordForm()"><i class="fa-solid fa-plus"></i> '+(table==='USERS'?'สร้างบัญชีผู้ใช้':'เพิ่มรายการ')+'</button>':'')+'</div></div>'+
+        '<section class="card"><div class="module-toolbar"><select id="tableSelector" onchange="changeTable(this.value)">'+tables+'</select><input id="tableSearch" type="search" placeholder="ค้นหาจากข้อมูลในตาราง..." value="'+escapeHtml(ARAMS_API.currentQuery)+'" onkeydown="if(event.key===\'Enter\'){searchRecords();}"><div class="quick-actions"><button class="btn btn-outline" onclick="searchRecords()"><i class="fa-solid fa-magnifying-glass"></i> ค้นหา</button><button class="btn btn-outline" onclick="refreshRecords()"><i class="fa-solid fa-rotate"></i></button></div></div><div class="module-info"><i class="fa-solid fa-circle-info"></i> ตารางข้อมูล: <strong>'+escapeHtml(table)+'</strong> · '+escapeHtml(TABLE_LABELS[table]||table)+' · แสดงสูงสุด '+ARAMS_API.pageSize+' รายการต่อหน้า</div><div id="recordTableArea"><div class="loading-line"></div></div></section>';
+      await loadRecords();
+    }
+    async function changeTable(table) { ARAMS_API.currentTable=table;ARAMS_API.currentPage=1;ARAMS_API.currentQuery='';await renderDataModule(ARAMS_API.currentModule,table); }
+    async function searchRecords() { ARAMS_API.currentQuery=document.getElementById('tableSearch')?.value.trim()||'';ARAMS_API.currentPage=1;await loadRecords(); }
+    async function refreshRecords() { await loadRecords(); }
+    function searchableFields(table) {
+      const fields=TABLE_SCHEMA[table]||[];
+      return fields.filter(f=>!HIDDEN_FIELDS.has(f)&&!BASE_FIELDS.has(f)&&!/(Json|Hash|Salt|Notes$)/i.test(f)).slice(0,12);
+    }
+    async function loadRecords() {
+      const moduleCode=ARAMS_API.currentModule,table=ARAMS_API.currentTable;
+      const area=document.getElementById('recordTableArea');if(!area)return;area.innerHTML='<div class="loading-line"></div>';
+      const module=ARAMS_API.modules[moduleCode]||MODULES[moduleCode];
+      const result=await apiRequest('data.list',{module:moduleCode,table,page:ARAMS_API.currentPage,pageSize:ARAMS_API.pageSize,q:ARAMS_API.currentQuery,sortBy:'updatedAt',sortDir:'desc',searchFields:searchableFields(table)});
+      if(!result.success){area.innerHTML='<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><div>'+escapeHtml(result.message)+'</div></div>';setConnection(false,'เชื่อมต่อข้อมูลไม่สำเร็จ');return;}
+      setConnection(true,'เชื่อมต่อแล้ว');const payload=result.data||{};ARAMS_API.currentRecords=payload.records||[];ARAMS_API.currentPagination=payload.pagination||{};
+      const records=ARAMS_API.currentRecords,fields=(TABLE_SCHEMA[table]||[]).filter(f=>!HIDDEN_FIELDS.has(f)&&!BASE_FIELDS.has(f)).slice(0,8);
+      let html='';
+      if(!records.length){html='<div class="empty-state"><i class="fa-solid fa-folder-open"></i><div>ไม่พบข้อมูลในรายการนี้</div><div class="small">ลองเปลี่ยนคำค้นหา หรือเพิ่มข้อมูลรายการใหม่</div></div>';}
+      else {
+        html='<div class="table-wrap"><table class="data-table"><thead><tr>'+(module?.canDelete&&!module?.readOnly?'<th class="no-print"><input type="checkbox" onchange="toggleSelectAll(this.checked)" aria-label="เลือกทั้งหมด"></th>':'')+fields.map(f=>'<th>'+escapeHtml(labelOf(f))+'</th>').join('')+'<th>จัดการ</th></tr></thead><tbody>';
+        html+=records.map((r,index)=>'<tr>'+(module?.canDelete&&!module?.readOnly?'<td class="no-print"><input type="checkbox" class="row-select" value="'+escapeHtml(r.id)+'" onchange="toggleRowSelection(this.value,this.checked)"></td>':'')+fields.map(f=>'<td>'+renderCell(r[f],f)+'</td>').join('')+'<td><div class="table-actions">'+(module?.canRead?'<button class="btn btn-outline btn-sm" title="ดูรายละเอียด" onclick="viewRecord(\''+escapeHtml(r.id)+'\')"><i class="fa-solid fa-eye"></i></button>':'')+(module?.canUpdate&&!module?.readOnly?'<button class="btn btn-outline btn-sm" title="แก้ไข" onclick="openRecordForm(\''+escapeHtml(r.id)+'\')"><i class="fa-solid fa-pen"></i></button>':'')+(module?.canDelete&&!module?.readOnly&&table!=='USERS'?'<button class="btn btn-danger btn-sm" title="ลบ" onclick="deleteRecord(\''+escapeHtml(r.id)+'\')"><i class="fa-solid fa-trash"></i></button>':'')+(table==='USERS'&&module?.canUpdate&&!module?.readOnly?'<button class="btn btn-outline btn-sm" title="กำหนดรหัสผ่านใหม่" onclick="resetUserPassword(\''+escapeHtml(r.id)+'\')"><i class="fa-solid fa-key"></i></button><button class="btn btn-danger btn-sm" title="ปิดใช้งานบัญชี" onclick="deactivateUser(\''+escapeHtml(r.id)+'\')"><i class="fa-solid fa-user-slash"></i></button>':'')+'</div></td></tr>').join('');
+        html+='</tbody></table></div>';
+      }
+      const p=ARAMS_API.currentPagination||{};const total=Number(p.total||0),pages=Number(p.totalPages||1);
+      html+='<div class="pagination"><div class="muted small">แสดง '+(total?((Number(p.page)-1)*Number(p.pageSize)+1):0)+'–'+Math.min(Number(p.page||1)*Number(p.pageSize||50),total)+' จาก '+total.toLocaleString('th-TH')+' รายการ</div><div class="pagination-actions"><select class="filter-input" style="width:auto;min-height:33px" onchange="changePageSize(this.value)"><option value="25" '+(ARAMS_API.pageSize===25?'selected':'')+'>25 รายการ</option><option value="50" '+(ARAMS_API.pageSize===50?'selected':'')+'>50 รายการ</option><option value="100" '+(ARAMS_API.pageSize===100?'selected':'')+'>100 รายการ</option><option value="200" '+(ARAMS_API.pageSize===200?'selected':'')+'>200 รายการ</option></select><button class="btn btn-outline btn-sm" '+(Number(p.page||1)<=1?'disabled':'')+' onclick="goPage(1)"><i class="fa-solid fa-angles-left"></i></button><button class="btn btn-outline btn-sm" '+(!p.hasPrevious?'disabled':'')+' onclick="goPage('+(Number(p.page||1)-1)+')"><i class="fa-solid fa-angle-left"></i></button><span class="small" style="padding:6px 4px">หน้า '+Number(p.page||1)+' / '+pages+'</span><button class="btn btn-outline btn-sm" '+(!p.hasNext?'disabled':'')+' onclick="goPage('+(Number(p.page||1)+1)+')"><i class="fa-solid fa-angle-right"></i></button><button class="btn btn-outline btn-sm" '+(Number(p.page||1)>=pages?'disabled':'')+' onclick="goPage('+pages+')"><i class="fa-solid fa-angles-right"></i></button></div></div>';
+      if(module?.canDelete&&!module?.readOnly&&table!=='USERS')html+='<div class="quick-actions no-print" style="margin-top:12px"><button class="btn btn-danger btn-sm" onclick="deleteSelectedRecords()"><i class="fa-solid fa-trash"></i> ลบรายการที่เลือก</button></div>';
+      area.innerHTML=html;
+    }
+    function renderCell(value,field) {
+      if(IMAGE_FIELDS.has(field)&&value){return '<img src="'+escapeHtml(value)+'" alt="รูปภาพ" loading="lazy" style="width:48px;height:48px;object-fit:cover;border-radius:7px;border:1px solid #dce3eb" onerror="this.style.display=\'none\'">';}
+      if(field==='status'||/Status$/.test(field)||field==='resultCode')return statusBadge(value);
+      if(typeof value==='string'&&/^https?:\/\//i.test(value))return '<a href="'+escapeHtml(value)+'" target="_blank" rel="noopener" class="small">เปิดลิงก์ <i class="fa-solid fa-arrow-up-right-from-square"></i></a>';
+      if(typeof value==='string'&&value.length>80)return '<span title="'+escapeHtml(value)+'">'+escapeHtml(value.slice(0,77))+'…</span>';
+      return escapeHtml(displayValue(value,field));
+    }
+    async function changePageSize(value){ARAMS_API.pageSize=Math.min(200,Math.max(25,Number(value)||50));ARAMS_API.currentPage=1;await loadRecords();}
+    async function goPage(page){ARAMS_API.currentPage=page;await loadRecords();}
+    function toggleRowSelection(id,checked){if(checked)ARAMS_API.selectedRows.add(id);else ARAMS_API.selectedRows.delete(id);}
+    function toggleSelectAll(checked){document.querySelectorAll('.row-select').forEach(el=>{el.checked=checked;toggleRowSelection(el.value,checked);});}
+
+    function makeFieldControl(field,value,table,readonly=false) {
+      const current=value===null||value===undefined?'':value;
+      const required=(REQUIRED_FIELDS[table]||[]).includes(field);
+      const id='field_'+field;
+      let type='text',extra='',control='';
+      if(IMAGE_FIELDS.has(field)) {
+        return '<div class="field form-field '+(field==='photoUrl'||field==='logoUrl'?'full':'')+'"><label>'+escapeHtml(labelOf(field))+'</label><div class="file-input"><input type="file" id="'+id+'_file" accept="image/jpeg,image/png,image/webp" '+(readonly?'disabled':'')+' onchange="previewLocalImage(\''+field+'\',this)"><div class="field-hint">เลือกไฟล์จากเครื่องโดยตรง รองรับ JPG, PNG, WEBP ขนาดไม่เกิน 5 MB</div><img id="'+id+'_preview" class="image-preview '+(current?'':'hidden')+'" src="'+escapeHtml(current)+'" alt="ตัวอย่างรูปภาพ" '+(current?'':'hidden')+'><input type="hidden" id="'+id+'" value="'+escapeHtml(current)+'"></div></div>';
+      }
+      if(/(Date|At)$/.test(field)||['birthDate','enrollmentDate','graduationDate','attendanceDate','achievementDate','effectiveDate','submittedAt'].includes(field))type='date';
+      else if(/(Score|Gpa|GPA|Point|Credit|Hours|Count|Number|Percent|Weight|minimumCredits|minimumGpa|lastNumber|periodNo)$/i.test(field))type='number';
+      else if(/^(is[A-Z]|can[A-Z]|mustChangePassword|isLocked|isCore|isElective|isActive|allowed)$/.test(field))type='select';
+      else if(/Json$/.test(field)||['roleCodes','prerequisiteSubjectIds','details','description','address','currentAddress','medicalNotes','specialNeeds','notes','reason','resultMessage'].includes(field)||current.length>100)type='textarea';
+      else if(['gender','level','currentLevel','admissionLevel'].includes(field))type='select-level';
+      else if(['status','studentStatus','selectionStatus','reportingStatus','requestStatus','registrationStatus','attendanceStatus','caseStatus','documentStatus','assessmentStatus','resultCode'].includes(field))type='select-status';
+      else if(['title'].includes(field))type='select-title';
+      if(type==='textarea') control='<textarea id="'+id+'" '+(readonly?'readonly':'')+' '+(required?'required':'')+'>'+escapeHtml(current)+'</textarea>';
+      else if(type==='select') control='<select id="'+id+'" '+(readonly?'disabled':'')+'><option value="">— เลือก —</option><option value="TRUE" '+(['TRUE','true','1'].includes(String(current))?'selected':'')+'>ใช่ / เปิดใช้งาน</option><option value="FALSE" '+(['FALSE','false','0'].includes(String(current))?'selected':'')+'>ไม่ใช่ / ปิดใช้งาน</option></select>';
+      else if(type==='select-level') {const opts=['ม.1','ม.2','ม.3','ม.4','ม.5','ม.6','ประถมศึกษา','อื่น ๆ'];control='<select id="'+id+'" '+(readonly?'disabled':'')+'><option value="">— เลือก —</option>'+opts.map(x=>'<option '+(String(current)===x?'selected':'')+'>'+x+'</option>').join('')+'</select>';}
+      else if(type==='select-title') {const opts=['เด็กชาย','เด็กหญิง','นาย','นางสาว','นาง','ดร.','อื่น ๆ'];control='<select id="'+id+'" '+(readonly?'disabled':'')+'><option value="">— เลือก —</option>'+opts.map(x=>'<option '+(String(current)===x?'selected':'')+'>'+x+'</option>').join('')+'</select>';}
+      else if(type==='select-status') {const opts=['ACTIVE','INACTIVE','PENDING','APPROVED','REJECTED','COMPLETED','CANCELLED','PASS','FAIL','PRESENT','ABSENT','LATE','LEAVE','0','ร','มส','มผ'];control='<select id="'+id+'" '+(readonly?'disabled':'')+'><option value="">— เลือก —</option>'+opts.map(x=>'<option value="'+x+'" '+(String(current).toUpperCase()===x?'selected':'')+'>'+escapeHtml(STATUS_LABELS[x]||x)+'</option>').join('')+'</select>';}
+      else control='<input id="'+id+'" type="'+type+'" value="'+escapeHtml(current)+'" '+(type==='number'?'step="any"':'')+' '+(required?'required':'')+' '+(readonly?'readonly':'')+'>';
+      const full=['notes','details','description','currentAddress','address','medicalNotes','specialNeeds','prerequisiteSubjectIds','roleCodes'].includes(field);
+      return '<div class="field form-field '+(full?'full':'')+'"><label for="'+id+'">'+escapeHtml(labelOf(field))+(required?' <span style="color:#b42318">*</span>':'')+'</label>'+control+'</div>';
+    }
+    function previewLocalImage(field,input) {
+      const file=input.files&&input.files[0];if(!file)return;
+      if(!['image/jpeg','image/png','image/webp'].includes(file.type)){notify('warning','ชนิดไฟล์ไม่รองรับ','กรุณาเลือกไฟล์ JPG, PNG หรือ WEBP');input.value='';return;}
+      if(file.size>MAX_UPLOAD_BYTES){notify('warning','ไฟล์มีขนาดใหญ่เกินไป','กรุณาเลือกไฟล์รูปภาพที่มีขนาดไม่เกิน 5 MB');input.value='';return;}
+      const reader=new FileReader();reader.onload=()=>{const img=document.getElementById('field_'+field+'_preview');img.src=reader.result;img.classList.remove('hidden');img.hidden=false;};reader.readAsDataURL(file);
+    }
+    async function uploadLocalImage(file,module,recordId) {
+      const base64=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]||'');reader.onerror=()=>reject(new Error('file'));reader.readAsDataURL(file);});
+      const result=await apiRequest('upload.image',{module,recordId:recordId||'',fileName:file.name,mimeType:file.type,base64});
+      if(!result.success)throw new Error(result.message||'อัปโหลดรูปภาพไม่สำเร็จ');return result.data.url;
+    }
+
+    async function openRecordForm(id) {
+      const moduleCode=ARAMS_API.currentModule,table=ARAMS_API.currentTable,module=ARAMS_API.modules[moduleCode]||MODULES[moduleCode];
+      let record={};if(id){const r=await apiRequest('data.get',{module:moduleCode,table,id});if(!r.success){await notify('error','ไม่สามารถเปิดข้อมูลได้',r.message);return;}record=r.data||{};}
+      if(table==='USERS'){await openUserForm(record);return;}
+      const fields=(TABLE_SCHEMA[table]||[]).filter(f=>!HIDDEN_FIELDS.has(f)&&!BASE_FIELDS.has(f));
+      const locked=Boolean(id)&&!module.canUpdate;
+      const html='<form id="recordEditor" class="text-left" style="max-height:65vh;overflow:auto;padding-right:8px"><div class="form-grid">'+fields.map(f=>makeFieldControl(f,record[f],table,locked)).join('')+'</div></form>';
+      const result=await Swal.fire({title:(id?'แก้ไข':'เพิ่ม')+' '+(TABLE_LABELS[table]||table),html,width:'min(900px, 96vw)',showCancelButton:true,confirmButtonText:id?'บันทึกการแก้ไข':'บันทึกข้อมูล',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',focusConfirm:false,preConfirm:()=>{const record=collectFormRecord(fields,table);if(record===false)return false;const files=fields.filter(f=>IMAGE_FIELDS.has(f)).map(field=>({field,file:document.getElementById('field_'+field+'_file')?.files?.[0]||null})).filter(item=>item.file);return{record,files};}});
+      if(!result.isConfirmed)return;
+      const payload=result.value?.record;if(!payload)return;
+      const fileUploads=result.value.files||[];
+      const action=id?'data.update':'data.create';const args=id?{module:moduleCode,table,id,record:payload}:{module:moduleCode,table,record:payload};
+      Swal.fire({title:'กำลังบันทึกข้อมูล',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});
+      const saved=await apiRequest(action,args);if(!saved.success){Swal.close();await notify('error','บันทึกข้อมูลไม่สำเร็จ',saved.message);return;}
+      let recordId=saved.data?.id||id;
+      try {
+        for(const item of fileUploads){const url=await uploadLocalImage(item.file,moduleCode,recordId);const updated=await apiRequest('data.update',{module:moduleCode,table,id:recordId,record:{[item.field]:url}});if(!updated.success)throw new Error(updated.message);}
+        Swal.close();await notify('success','บันทึกข้อมูลเรียบร้อยแล้ว',fileUploads.length?'อัปโหลดรูปภาพและบันทึกลิงก์เรียบร้อยแล้ว':'');await loadRecords();
+      } catch(error){Swal.close();await notify('warning','บันทึกข้อมูลแล้ว แต่การอัปโหลดรูปภาพไม่สำเร็จ','กรุณาแก้ไขรายการแล้วอัปโหลดรูปภาพอีกครั้ง');await loadRecords();}
+    }
+    function collectFormRecord(fields,table) {
+      const record={};let valid=true;
+      for(const field of fields){if(IMAGE_FIELDS.has(field)){const hidden=document.getElementById('field_'+field);if(hidden&&hidden.value)record[field]=hidden.value;continue;}const el=document.getElementById('field_'+field);if(!el)continue;let value=el.value;
+        if(el.required&&!String(value).trim()){el.focus();valid=false;break;}
+        if(el.type==='number'&&value!=='')value=Number(value);
+        if(field==='roleCodes'&&typeof value==='string'&&value.trim()){try{JSON.parse(value);}catch(_){el.focus();notify('warning','รูปแบบข้อมูลไม่ถูกต้อง','กรุณาระบุบทบาทในรูปแบบ JSON เช่น ["TEACHER"]');valid=false;break;}}
+        if(value!==''&&value!==null)record[field]=value;
+      }
+      if(!valid){Swal.showValidationMessage('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน');return false;}return record;
+    }
+    async function viewRecord(id) {
+      const r=await apiRequest('data.get',{module:ARAMS_API.currentModule,table:ARAMS_API.currentTable,id});if(!r.success){await notify('error','ไม่สามารถเปิดรายละเอียดได้',r.message);return;}
+      const record=r.data||{};const rows=Object.keys(record).filter(f=>!HIDDEN_FIELDS.has(f)).map(f=>'<div style="display:grid;grid-template-columns:180px 1fr;gap:10px;padding:6px 0;border-bottom:1px solid #edf1f5"><strong>'+escapeHtml(labelOf(f))+'</strong><span style="overflow-wrap:anywhere">'+escapeHtml(displayValue(record[f],f))+'</span></div>').join('');
+      await Swal.fire({title:'รายละเอียดข้อมูล',html:'<div class="text-left" style="max-height:65vh;overflow:auto">'+rows+'</div>',width:'min(800px,96vw)',confirmButtonText:'ปิด',confirmButtonColor:'#17365d'});
+    }
+    async function deleteRecord(id) {
+      const yes=await confirmAction('ยืนยันการลบ','รายการนี้จะถูกย้ายไปสถานะลบ และไม่แสดงในรายการปกติ','ลบรายการ');if(!yes)return;
+      const reason=await Swal.fire({title:'ระบุเหตุผลการลบ',input:'text',inputPlaceholder:'เหตุผล (ถ้ามี)',showCancelButton:true,confirmButtonText:'ดำเนินการ',cancelButtonText:'ยกเลิก',confirmButtonColor:'#b42318'});if(!reason.isConfirmed)return;
+      const result=await apiRequest('data.delete',{module:ARAMS_API.currentModule,table:ARAMS_API.currentTable,id,reason:reason.value||''});if(!result.success){await notify('error','ลบข้อมูลไม่สำเร็จ',result.message);return;}await notify('success','ลบรายการเรียบร้อยแล้ว');await loadRecords();
+    }
+    async function deleteSelectedRecords() {
+      const ids=Array.from(ARAMS_API.selectedRows);if(!ids.length){await notify('info','ยังไม่ได้เลือกรายการ','กรุณาเลือกรายการที่ต้องการลบ');return;}
+      const yes=await confirmAction('ยืนยันการลบ '+ids.length+' รายการ','รายการที่เลือกจะถูกย้ายไปสถานะลบ','ลบรายการที่เลือก');if(!yes)return;
+      let done=0;for(const id of ids){const r=await apiRequest('data.delete',{module:ARAMS_API.currentModule,table:ARAMS_API.currentTable,id,reason:'ลบรายการแบบกลุ่ม'});if(r.success)done++;}
+      ARAMS_API.selectedRows.clear();await notify('success','ดำเนินการเรียบร้อย','ลบสำเร็จ '+done+' จาก '+ids.length+' รายการ');await loadRecords();
+    }
+
+    /* ======================================================================
+       USER ADMINISTRATION / PASSWORD MANAGEMENT
+       ====================================================================== */
+    async function openUserForm(record={}) {
+      const isEdit=Boolean(record.id);
+      const rolesResult=await apiRequest('system.options',{module:'settings',type:'roles'});
+      const roles=rolesResult.success?rolesResult.data||[]:[];
+      const currentRoles=Array.isArray(record.roleCodes)?record.roleCodes:(()=>{try{return JSON.parse(record.roleCodes||'[]')}catch(_){return[]}})();
+      const roleOptions=roles.map(r=>'<label style="display:flex;align-items:center;gap:8px;padding:5px 0"><input type="checkbox" name="userRole" value="'+escapeHtml(r.roleCode)+'" '+(currentRoles.includes(r.roleCode)?'checked':'')+'> '+escapeHtml(r.roleName||r.roleCode)+' <span class="muted small">('+escapeHtml(r.roleCode)+')</span></label>').join('');
+      const html='<div class="text-left"><div class="form-grid"><div class="field"><label>อีเมล</label><input id="userEmail" type="email" '+(isEdit?'disabled':'')+' value="'+escapeHtml(record.email||'')+'" required></div><div class="field"><label>ชื่อที่แสดง</label><input id="userDisplayName" value="'+escapeHtml(record.displayName||'')+'" required></div><div class="field"><label>ชื่อ</label><input id="userFirstName" value="'+escapeHtml(record.firstName||'')+'"></div><div class="field"><label>นามสกุล</label><input id="userLastName" value="'+escapeHtml(record.lastName||'')+'"></div><div class="field"><label>โทรศัพท์</label><input id="userPhone" value="'+escapeHtml(record.phone||'')+'"></div>'+(isEdit?'':'<div class="field"><label>รหัสผ่านเริ่มต้น (อย่างน้อย 12 ตัวอักษร)</label><input id="userPassword" type="password" minlength="12" required></div>')+'</div><div class="field"><label>กำหนดบทบาท</label><div style="columns:2;max-height:220px;overflow:auto;padding:8px 12px;border:1px solid #d7e0ea;border-radius:8px">'+roleOptions+'</div></div></div>';
+      const result=await Swal.fire({title:isEdit?'แก้ไขบัญชีผู้ใช้งาน':'สร้างบัญชีผู้ใช้งาน',html,width:'min(760px,96vw)',showCancelButton:true,confirmButtonText:'บันทึก',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',preConfirm:()=>{
+        const email=document.getElementById('userEmail').value.trim(),displayName=document.getElementById('userDisplayName').value.trim();
+        const roleCodes=Array.from(document.querySelectorAll('input[name="userRole"]:checked')).map(x=>x.value);
+        const password=document.getElementById('userPassword')?.value||'';
+        if(!displayName||!roleCodes.length){Swal.showValidationMessage('กรุณากรอกชื่อและเลือกบทบาทอย่างน้อยหนึ่งรายการ');return false;}
+        if(!isEdit&&(!email||password.length<12)){Swal.showValidationMessage('กรุณาระบุอีเมลและรหัสผ่านอย่างน้อย 12 ตัวอักษร');return false;}
+        return {email,displayName,firstName:document.getElementById('userFirstName').value,lastName:document.getElementById('userLastName').value,phone:document.getElementById('userPhone').value,roleCodes,password};
+      }});
+      if(!result.isConfirmed)return;const value=result.value;
+      let saved;
+      if(isEdit){
+        saved=await apiRequest('data.update',{module:'settings',table:'USERS',id:record.id,record:{displayName:value.displayName,firstName:value.firstName,lastName:value.lastName,phone:value.phone}});
+        if(saved.success){const rolesSave=await apiRequest('admin.users.setRoles',{userId:record.id,roleCodes:value.roleCodes});if(!rolesSave.success){await notify('warning','บันทึกข้อมูลบางส่วนแล้ว',rolesSave.message);await loadRecords();return;}}
+      } else {
+        saved=await apiRequest('admin.users.create',{email:value.email,displayName:value.displayName,firstName:value.firstName,lastName:value.lastName,phone:value.phone,roleCodes:value.roleCodes,password:value.password});
+      }
+      if(!saved.success){await notify('error','บันทึกบัญชีไม่สำเร็จ',saved.message);return;}await notify('success','บันทึกบัญชีผู้ใช้งานเรียบร้อยแล้ว');await loadRecords();
+    }
+    async function resetUserPassword(userId) {
+      const result=await Swal.fire({title:'กำหนดรหัสผ่านใหม่',input:'password',inputLabel:'รหัสผ่านใหม่ (อย่างน้อย 12 ตัวอักษร)',inputAttributes:{minlength:12,autocomplete:'new-password'},showCancelButton:true,confirmButtonText:'เปลี่ยนรหัสผ่าน',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',inputValidator:v=>!v||v.length<12?'กรุณากำหนดรหัสผ่านอย่างน้อย 12 ตัวอักษร':undefined});if(!result.isConfirmed)return;
+      const r=await apiRequest('admin.users.resetPassword',{userId,newPassword:result.value});if(!r.success){await notify('error','เปลี่ยนรหัสผ่านไม่สำเร็จ',r.message);return;}await notify('success','กำหนดรหัสผ่านใหม่เรียบร้อยแล้ว');await loadRecords();
+    }
+    async function deactivateUser(userId) {
+      const yes=await confirmAction('ปิดใช้งานบัญชี','ผู้ใช้งานจะไม่สามารถเข้าสู่ระบบได้','ปิดใช้งาน');if(!yes)return;
+      const r=await apiRequest('admin.users.deactivate',{userId,reason:'ปิดใช้งานโดยผู้ดูแลระบบ'});if(!r.success){await notify('error','ไม่สามารถปิดใช้งานบัญชีได้',r.message);return;}await notify('success','ปิดใช้งานบัญชีเรียบร้อยแล้ว');await loadRecords();
+    }
+    async function openChangePassword(forceChange=false) {
+      const html='<div class="text-left"><div class="field"><label>รหัสผ่านปัจจุบัน</label><input id="currentPassword" type="password" autocomplete="current-password"></div><div class="field"><label>รหัสผ่านใหม่ (อย่างน้อย 12 ตัวอักษร)</label><input id="newPassword" type="password" minlength="12" autocomplete="new-password"></div><div class="field"><label>ยืนยันรหัสผ่านใหม่</label><input id="confirmPassword" type="password" minlength="12" autocomplete="new-password"></div></div>';
+      const r=await Swal.fire({title:forceChange?'กรุณาเปลี่ยนรหัสผ่านก่อนเริ่มใช้งาน':'เปลี่ยนรหัสผ่าน',html,showCancelButton:!forceChange,allowOutsideClick:!forceChange,allowEscapeKey:!forceChange,confirmButtonText:'เปลี่ยนรหัสผ่าน',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',preConfirm:()=>{const currentPassword=document.getElementById('currentPassword').value,newPassword=document.getElementById('newPassword').value,confirmPassword=document.getElementById('confirmPassword').value;if(newPassword.length<12||newPassword!==confirmPassword){Swal.showValidationMessage('รหัสผ่านใหม่ต้องมีอย่างน้อย 12 ตัวอักษรและต้องตรงกัน');return false;}return{currentPassword,newPassword};}});if(!r.isConfirmed)return;
+      const out=await apiRequest('auth.changePassword',r.value);if(!out.success){await notify('error','เปลี่ยนรหัสผ่านไม่สำเร็จ',out.message);return;}await notify('success','เปลี่ยนรหัสผ่านเรียบร้อยแล้ว','กรุณาเข้าสู่ระบบด้วยรหัสผ่านใหม่');clearSession();
+    }
+
+    /* ======================================================================
+       WORKFLOW HUBS: เชื่อม API เฉพาะตามฟังก์ชันที่มีใน Code.gs
+       ====================================================================== */
+    const WORKFLOW_CARDS = {
+      admissions:[['convert','ขึ้นทะเบียนผู้สมัครเป็นนักเรียน','แปลงใบสมัครที่ผ่านการคัดเลือกเข้าสู่ทะเบียนนักเรียน','fa-user-check']],
+      registration:[['validate','ตรวจสอบเงื่อนไขการลงทะเบียน','ตรวจสอบวิชาซ้ำและวิชาบังคับก่อนเรียน','fa-clipboard-check']],
+      attendance:[['summary','สรุปเวลาเรียนรายบุคคล','รวมมาเรียน ขาด ลา สาย และคำนวณร้อยละเวลาเรียน','fa-calendar-check']],
+      assessment:[['calculate','คำนวณผลการเรียนรายวิชา','ประมวลผลคะแนนตามเกณฑ์ที่ตั้งค่าไว้และบันทึกผล','fa-calculator'],['approve','อนุมัติผลการเรียน','อนุมัติและล็อกผลการเรียนที่ตรวจสอบแล้ว','fa-stamp']],
+      graduation:[['graduation','ตรวจสอบสำเร็จการศึกษา','ตรวจสอบหน่วยกิต เกรด และรายการคงค้าง','fa-graduation-cap'],['number','ออกเลขที่เอกสาร','จองเลขที่เอกสารทางการศึกษาอัตโนมัติ','fa-file-circle-plus']],
+      lec:[['lec','เตรียมข้อมูลต้นสังกัด','ตรวจสอบและบริหารรายการส่งออก LEC จากตารางข้อมูล','fa-building-columns']],
+      calendar:[['calendar','ปฏิทินวิชาการ','จัดการปีการศึกษา ภาคเรียน และกิจกรรม','fa-calendar-days']],
+      studentSupport:[['support','ติดตามนักเรียนกลุ่มเสี่ยง','บันทึกการช่วยเหลือและติดตามผลรายบุคคล','fa-hand-holding-heart']],
+      services:[['services','คำร้องออนไลน์','รับคำร้อง ติดตามสถานะ และบันทึกผลดำเนินการ','fa-file-signature']]
+    };
+    const WORKFLOW_TABLES = {
+      admissions:'ADMISSIONS',registration:'REGISTRATIONS',attendance:'ATTENDANCE',assessment:'GRADE_RESULTS',graduation:'GRADUATES',lec:'LEC_DATA_CHECKS',calendar:'ACADEMIC_CALENDAR',studentSupport:'STUDENT_ALERTS',services:'SERVICE_REQUESTS'
+    };
+    async function renderWorkflowModule(code) {
+      const module=ARAMS_API.modules[code]||MODULES[code];const root=document.getElementById('pageContent');const cards=WORKFLOW_CARDS[code]||[];
+      const cardHtml=cards.map(c=>'<div class="workflow-card"><div class="stat-icon" style="margin-bottom:9px"><i class="fa-solid '+c[3]+'"></i></div><h3>'+c[1]+'</h3><p>'+c[2]+'</p><button class="btn btn-primary" onclick="runWorkflow(\''+code+'\',\''+c[0]+'\')">เปิดใช้งาน <i class="fa-solid fa-arrow-right"></i></button></div>').join('');
+      const table=WORKFLOW_TABLES[code]||module.defaultTable;
+      const tableOptions=(module.tables||[]).map(t=>'<option value="'+escapeHtml(t)+'" '+(t===table?'selected':'')+'>'+escapeHtml(TABLE_LABELS[t]||t)+'</option>').join('');
+      root.innerHTML='<div class="page-title-row"><div><h1 class="page-title">'+escapeHtml(module.label)+'</h1><div class="page-subtitle">เครื่องมือปฏิบัติงานเฉพาะด้านและข้อมูลที่เกี่ยวข้อง</div></div><div class="quick-actions"><button class="btn btn-outline" onclick="navigate(\'reports\')"><i class="fa-solid fa-file-pdf"></i> รายงาน</button></div></div>'+
+        (cards.length?'<div class="workflow-grid" style="margin-bottom:18px">'+cardHtml+'</div>':'')+
+        '<section class="card"><h2 class="card-title"><i class="fa-solid fa-table-list"></i> รายการข้อมูลที่เกี่ยวข้อง</h2><div class="module-toolbar"><select id="tableSelector" onchange="changeTableFromWorkflow(this.value)">'+tableOptions+'</select><input id="tableSearch" type="search" placeholder="ค้นหารายการ..." onkeydown="if(event.key===\'Enter\'){searchRecords();}"><button class="btn btn-outline" onclick="searchRecords()"><i class="fa-solid fa-magnifying-glass"></i> ค้นหา</button></div><div id="recordTableArea"><div class="loading-line"></div></div></section>';
+      ARAMS_API.currentModule=code;ARAMS_API.currentTable=table;ARAMS_API.currentPage=1;ARAMS_API.currentQuery='';await loadRecords();
+    }
+    async function changeTableFromWorkflow(table){ARAMS_API.currentTable=table;ARAMS_API.currentPage=1;ARAMS_API.currentQuery='';await loadRecords();}
+    async function runWorkflow(module,task) {
+      if(module==='admissions'&&task==='convert')return workflowConvertAdmission();
+      if(module==='registration'&&task==='validate')return workflowValidateRegistration();
+      if(module==='attendance'&&task==='summary')return workflowAttendanceSummary();
+      if(module==='assessment'&&task==='calculate')return workflowCalculateGrades();
+      if(module==='assessment'&&task==='approve')return workflowApproveGrades();
+      if(module==='graduation'&&task==='graduation')return workflowCheckGraduation();
+      if(module==='graduation'&&task==='number')return workflowNextDocumentNumber();
+      if(module==='lec'&&task==='lec')return renderDataModule('lec','LEC_DATA_CHECKS');
+      if(module==='calendar'&&task==='calendar')return renderDataModule('calendar','ACADEMIC_CALENDAR');
+      if(module==='studentSupport'&&task==='support')return renderDataModule('studentSupport','STUDENT_ALERTS');
+      if(module==='services'&&task==='services')return renderDataModule('services','SERVICE_REQUESTS');
+    }
+    function modalFields(fields) {
+      return '<div class="text-left">'+fields.map(f=>{const [name,label,type='text',required=true,placeholder='']=f;return '<div class="field"><label for="wf_'+name+'">'+label+(required?' <span style="color:#b42318">*</span>':'')+'</label>'+(type==='select'?'<select id="wf_'+name+'" '+(required?'required':'')+'><option value="">— เลือก —</option>'+(placeholder||'').split('|').filter(Boolean).map(o=>'<option>'+escapeHtml(o)+'</option>').join('')+'</select>':'<input id="wf_'+name+'" type="'+type+'" placeholder="'+escapeHtml(placeholder)+'" '+(required?'required':'')+'>' )+'</div>';}).join('')+'</div>';
+    }
+    function readWorkflowFields(fields) {const out={};for(const f of fields){const el=document.getElementById('wf_'+f[0]);const val=el?.value.trim()||'';if(f[3]&&!val){el?.focus();Swal.showValidationMessage('กรุณากรอกข้อมูลให้ครบถ้วน');return false;}out[f[0]]=val;}return out;}
+    async function workflowConvertAdmission() {
+      const fields=[['admissionId','รหัสรายการใบสมัคร'],['studentCode','รหัสนักเรียนใหม่ (เว้นว่างเพื่อให้ระบบสร้าง)','text',false]];
+      const r=await Swal.fire({title:'ขึ้นทะเบียนผู้สมัครเป็นนักเรียน',html:modalFields(fields),showCancelButton:true,confirmButtonText:'ขึ้นทะเบียน',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',preConfirm:()=>readWorkflowFields(fields)});if(!r.isConfirmed)return;
+      const result=await apiRequest('admissions.convertToStudent',r.value);if(!result.success){await notify('error','ขึ้นทะเบียนไม่สำเร็จ',result.message);return;}await notify('success','ขึ้นทะเบียนนักเรียนเรียบร้อยแล้ว','รหัสนักเรียน: '+(result.data.student.studentCode||''));await renderWorkflowModule('admissions');
+    }
+    async function workflowValidateRegistration() {
+      const fields=[['studentId','รหัสรายการนักเรียน'],['subjectId','รหัสรายการรายวิชา'],['academicYear','ปีการศึกษา'],['termCode','ภาคเรียน']];
+      const r=await Swal.fire({title:'ตรวจสอบเงื่อนไขการลงทะเบียน',html:modalFields(fields),showCancelButton:true,confirmButtonText:'ตรวจสอบ',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',preConfirm:()=>readWorkflowFields(fields)});if(!r.isConfirmed)return;
+      const out=await apiRequest('academic.validateRegistration',r.value);if(!out.success){await notify('error','ตรวจสอบไม่สำเร็จ',out.message);return;}
+      const d=out.data;await Swal.fire({icon:d.valid?'success':'warning',title:d.valid?'ผ่านเงื่อนไขการลงทะเบียน':'พบเงื่อนไขที่ต้องตรวจสอบ',html:'<div class="text-left"><p>รายการวิชา: '+escapeHtml(d.subject?.subjectCode||'')+' '+escapeHtml(d.subject?.subjectName||'')+'</p><p>วิชาซ้ำ: '+(d.duplicate?'พบ':'ไม่พบ')+'</p><p>วิชาบังคับก่อนเรียนที่ยังไม่ผ่าน: '+(d.missingPrerequisites||[]).length+' รายการ</p>'+(d.missingPrerequisites||[]).map(x=>'<div>'+escapeHtml(x)+'</div>').join('')+'</div>',confirmButtonText:'ปิด',confirmButtonColor:'#17365d'});
+    }
+    async function workflowAttendanceSummary() {
+      const fields=[['academicYear','ปีการศึกษา','text',false],['termCode','ภาคเรียน','text',false],['studentId','รหัสนักเรียน (เว้นว่างเพื่อดูทั้งหมด)','text',false]];
+      const r=await Swal.fire({title:'สรุปเวลาเรียน',html:modalFields(fields),showCancelButton:true,confirmButtonText:'ประมวลผล',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',preConfirm:()=>readWorkflowFields(fields)});if(!r.isConfirmed)return;
+      const filters={};if(r.value.academicYear)filters.academicYear=r.value.academicYear;if(r.value.termCode)filters.termCode=r.value.termCode;if(r.value.studentId)filters.studentId=r.value.studentId;
+      const result=await apiRequest('attendance.summary',{filters});if(!result.success){await notify('error','สรุปเวลาเรียนไม่สำเร็จ',result.message);return;}
+      const rows=result.data||[];const table='<div class="table-wrap"><table class="data-table"><thead><tr><th>รหัสนักเรียน</th><th>มาเรียน</th><th>ขาด</th><th>สาย</th><th>ลา</th><th>ร้อยละมาเรียน</th></tr></thead><tbody>'+rows.map(x=>'<tr><td>'+escapeHtml(x.studentId)+'</td><td>'+x.present+'</td><td>'+x.absent+'</td><td>'+x.late+'</td><td>'+x.leave+'</td><td>'+x.attendancePercent+'%</td></tr>').join('')+'</tbody></table></div>';
+      await Swal.fire({title:'สรุปเวลาเรียน',html:rows.length?table:'ไม่พบข้อมูลเวลาเรียน',width:'min(900px,96vw)',confirmButtonText:'ปิด',confirmButtonColor:'#17365d'});
+    }
+    async function workflowCalculateGrades() {
+      const fields=[['subjectId','รหัสรายการรายวิชา'],['academicYear','ปีการศึกษา'],['termCode','ภาคเรียน']];
+      const r=await Swal.fire({title:'คำนวณผลการเรียนรายวิชา',html:modalFields(fields),showCancelButton:true,confirmButtonText:'คำนวณและบันทึกผล',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',preConfirm:()=>readWorkflowFields(fields)});if(!r.isConfirmed)return;
+      Swal.fire({title:'กำลังคำนวณผลการเรียน',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});
+      const result=await apiRequest('academic.calculateGrades',r.value);if(!result.success){Swal.close();await notify('error','คำนวณผลการเรียนไม่สำเร็จ',result.message);return;}
+      const rows=result.data.results||[];
+      if(!rows.length){Swal.close();await notify('info','ไม่มีข้อมูลสำหรับคำนวณ','ไม่พบคะแนนที่พร้อมประมวลผล');return;}
+      let existingRows=[];try{existingRows=await fetchAllReportRows('assessment','GRADE_RESULTS',{subjectId:r.value.subjectId,academicYear:r.value.academicYear,termCode:r.value.termCode});}catch(error){Swal.close();await notify('error','ตรวจสอบผลเดิมไม่สำเร็จ',friendlyError(error.message));return;}
+      const existingMap=new Map(existingRows.map(x=>[String(x.studentId),x]));
+      const records=rows.map(x=>{const old=existingMap.get(String(x.studentId));return {id:old?.id||'',studentId:x.studentId,academicYear:r.value.academicYear,termCode:r.value.termCode,subjectId:r.value.subjectId,totalScore:x.totalScore,gradeLabel:x.gradeLabel,gradePoint:x.gradePoint,resultCode:x.resultCode,credit:x.credit,creditEarned:['ผ่าน','ผ','PASS'].includes(String(x.resultCode).toUpperCase())?x.credit:0,assessmentStatus:'CALCULATED',approvedAt:'',approvedBy:'',isLocked:'FALSE',revisionNo:old?Number(old.revisionNo||0)+1:1};});
+      let inserted=0,updated=0,skipped=0;for(let i=0;i<records.length;i+=200){const batch=records.slice(i,i+200);const saved=await apiRequest('data.bulkUpsert',{module:'assessment',table:'GRADE_RESULTS',uniqueField:'id',records:batch});if(!saved.success){Swal.close();await notify('warning','คำนวณแล้วแต่บันทึกได้ไม่ครบ',saved.message);return;}inserted+=saved.data.inserted||0;updated+=saved.data.updated||0;skipped+=saved.data.skipped||0;}
+      Swal.close();await notify('success','คำนวณและบันทึกผลการเรียนเรียบร้อยแล้ว','สร้างใหม่ '+inserted+' รายการ · ปรับปรุง '+updated+' รายการ · ข้าม '+skipped+' รายการ');await renderWorkflowModule('assessment');
+    }
+    async function workflowApproveGrades() {
+      let allGrades=[];try{allGrades=await fetchAllReportRows('assessment','GRADE_RESULTS',{});}catch(error){await notify('error','โหลดผลการเรียนไม่สำเร็จ',friendlyError(error.message));return;}
+      const pending=allGrades.filter(x=>!x.approvedAt&&String(x.isLocked).toUpperCase()!=='TRUE');if(!pending.length){await notify('info','ไม่มีผลการเรียนรออนุมัติ');return;}
+      const options=pending.map(x=>'<label style="display:block;text-align:left;padding:5px;border-bottom:1px solid #edf1f5"><input type="checkbox" name="approveGrade" value="'+escapeHtml(x.id)+'"> '+escapeHtml(x.studentId)+' · '+escapeHtml(x.subjectId)+' · '+escapeHtml(x.gradeLabel||x.resultCode||'-')+'</label>').join('');
+      const r=await Swal.fire({title:'เลือกรายการผลการเรียนเพื่ออนุมัติ',html:'<div style="max-height:50vh;overflow:auto">'+options+'</div><div class="field" style="margin-top:10px"><label>เหตุผล/หมายเหตุ</label><input id="approvalReason" placeholder="ระบุหมายเหตุ (ถ้ามี)"></div>',width:'min(760px,96vw)',showCancelButton:true,confirmButtonText:'อนุมัติและล็อกผล',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',preConfirm:()=>{const gradeResultIds=Array.from(document.querySelectorAll('input[name="approveGrade"]:checked')).map(x=>x.value);if(!gradeResultIds.length){Swal.showValidationMessage('กรุณาเลือกรายการอย่างน้อยหนึ่งรายการ');return false;}return{gradeResultIds,reason:document.getElementById('approvalReason').value};}});if(!r.isConfirmed)return;
+      const out=await apiRequest('academic.approveGrades',r.value);if(!out.success){await notify('error','อนุมัติผลการเรียนไม่สำเร็จ',out.message);return;}await notify('success','อนุมัติผลการเรียนเรียบร้อยแล้ว','อนุมัติ '+out.data.approved+' รายการ · ข้าม '+out.data.skipped+' รายการ');await renderWorkflowModule('assessment');
+    }
+    async function workflowCheckGraduation() {
+      const fields=[['studentId','รหัสรายการนักเรียน'],['level','ระดับชั้น','select',true,'ม.3|ม.6'],['curriculumId','รหัสหลักสูตร (ไม่บังคับ)','text',false]];
+      const r=await Swal.fire({title:'ตรวจสอบสำเร็จการศึกษา',html:modalFields(fields),showCancelButton:true,confirmButtonText:'ตรวจสอบ',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',preConfirm:()=>readWorkflowFields(fields)});if(!r.isConfirmed)return;
+      const out=await apiRequest('academic.checkGraduation',r.value);if(!out.success){await notify('error','ตรวจสอบไม่สำเร็จ',out.message);return;}const d=out.data;
+      const details=(d.outstandingItems||[]).map(x=>'<li>'+escapeHtml(x.name||x.code)+' '+(x.required!==undefined?'(เกณฑ์ '+escapeHtml(x.required)+' / ปัจจุบัน '+escapeHtml(x.current)+')':'('+escapeHtml(x.count)+' รายการ)')+'</li>').join('');
+      await Swal.fire({icon:d.eligible?'success':'warning',title:d.eligible?'ผ่านเงื่อนไขการสำเร็จการศึกษา':'ยังไม่ผ่านเงื่อนไขการสำเร็จการศึกษา',html:'<div class="text-left"><p><strong>นักเรียน:</strong> '+escapeHtml(d.studentCode)+' '+escapeHtml(d.studentName)+'</p><p><strong>ระดับชั้น:</strong> '+escapeHtml(d.level)+'</p><p><strong>หน่วยกิตสะสม:</strong> '+escapeHtml(d.earnedCredits)+' / '+escapeHtml(d.totalCredits)+'</p><p><strong>GPA:</strong> '+escapeHtml(d.gpa)+'</p><strong>รายการที่ต้องดำเนินการ</strong><ul>'+ (details||'<li>ไม่พบรายการคงค้าง</li>')+'</ul></div>',confirmButtonText:'ปิด',confirmButtonColor:'#17365d'});
+    }
+    async function workflowNextDocumentNumber() {
+      const fields=[['documentType','ประเภทเอกสาร'],['academicYear','ปีการศึกษา'],['prefix','คำนำหน้าเลขที่','text',false]];
+      const r=await Swal.fire({title:'ออกเลขที่เอกสาร',html:modalFields(fields),showCancelButton:true,confirmButtonText:'ออกเลขที่',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',preConfirm:()=>readWorkflowFields(fields)});if(!r.isConfirmed)return;
+      const out=await apiRequest('documents.nextNumber',r.value);if(!out.success){await notify('error','ออกเลขที่เอกสารไม่สำเร็จ',out.message);return;}await Swal.fire({icon:'success',title:'ออกเลขที่เอกสารเรียบร้อยแล้ว',html:'<div style="font-size:26px;font-weight:700;color:#17365d">'+escapeHtml(out.data.documentNo)+'</div>',confirmButtonText:'คัดลอกและปิด',confirmButtonColor:'#17365d'}).then(()=>navigator.clipboard?.writeText(out.data.documentNo).catch(()=>{}));
+    }
+
+    /* ======================================================================
+       REPORT CENTER: CSV from backend, formal PDF via browser print engine
+       ====================================================================== */
+    const REPORT_PRESETS = [
+      {title:'ทะเบียนรายชื่อนักเรียน',module:'students',table:'STUDENTS',icon:'fa-user-graduate',description:'รายชื่อนักเรียนพร้อมระดับชั้นและข้อมูลประจำตัว'},
+      {title:'รายงานผลการเรียน',module:'assessment',table:'GRADE_RESULTS',icon:'fa-graduation-cap',description:'ผลการเรียนรายวิชาและผลการประเมิน'},
+      {title:'รายงานคะแนน',module:'assessment',table:'SCORES',icon:'fa-marker',description:'คะแนนประเมินรายบุคคลและรายวิชา'},
+      {title:'รายงานการเข้าเรียน',module:'attendance',table:'ATTENDANCE',icon:'fa-calendar-check',description:'สถิติการมาเรียน ขาด ลา และมาสาย'},
+      {title:'รายงานผู้สำเร็จการศึกษา',module:'graduation',table:'GRADUATES',icon:'fa-award',description:'รายชื่อและข้อมูลผู้สำเร็จการศึกษา'},
+      {title:'รายงานการลงทะเบียน',module:'registration',table:'REGISTRATIONS',icon:'fa-clipboard-list',description:'รายชื่อนักเรียนแยกรายวิชาและภาคเรียน'},
+      {title:'รายงานคำร้องออนไลน์',module:'services',table:'SERVICE_REQUESTS',icon:'fa-file-signature',description:'สรุปคำร้องและสถานะการดำเนินงาน'},
+      {title:'รายงานครูและบุคลากร',module:'teachers',table:'TEACHERS',icon:'fa-chalkboard-user',description:'ข้อมูลครูและบุคลากรของสถานศึกษา'},
+      {title:'รายงานข้อมูล LEC',module:'lec',table:'LEC_DATA_CHECKS',icon:'fa-building-columns',description:'รายการตรวจสอบข้อมูลสำหรับต้นสังกัด'}
+    ];
+    function renderReports() {
+      const root=document.getElementById('pageContent');
+      root.innerHTML='<div class="page-title-row"><div><h1 class="page-title">รายงานและสารสนเทศ</h1><div class="page-subtitle">จัดทำรายงานทางการศึกษา ส่งออกข้อมูล และพิมพ์เอกสาร PDF</div></div></div><div class="card"><h2 class="card-title"><i class="fa-solid fa-file-pdf"></i> รูปแบบรายงานมาตรฐาน</h2><p class="muted" style="margin-top:-5px">รายงาน PDF จัดหน้ากระดาษ A4 ใช้ฟอนต์ Sarabun มีหัวรายงาน ตารางข้อมูล และช่องลงนาม สามารถเลือกบันทึกเป็น PDF จากหน้าต่างพิมพ์</p><div class="report-grid">'+REPORT_PRESETS.map((r,i)=>'<div class="report-tile"><i class="fa-solid '+r.icon+'"></i><strong>'+r.title+'</strong><span>'+r.description+'</span><button class="btn btn-outline" onclick="openReportOptions('+i+')"><i class="fa-solid fa-file-pdf"></i> จัดทำรายงาน PDF</button><button class="btn btn-outline btn-sm" onclick="exportPresetCsv('+i+')"><i class="fa-solid fa-file-csv"></i> ส่งออก CSV</button></div>').join('')+'</div></div><div class="card"><h2 class="card-title"><i class="fa-solid fa-sliders"></i> จัดทำรายงานจากตารางอื่น</h2><div class="module-toolbar"><select id="reportModule" onchange="updateReportTableOptions()"></select><select id="reportTable"></select><input id="reportTitle" placeholder="ชื่อรายงาน (ไม่บังคับ)"></div><div class="form-grid"><div class="field"><label>ปีการศึกษา (ไม่บังคับ)</label><input id="reportYear" placeholder="เช่น 2569"></div><div class="field"><label>ภาคเรียน (ไม่บังคับ)</label><select id="reportTerm"><option value="">ทุกภาคเรียน</option><option value="1">1</option><option value="2">2</option><option value="SUMMER">ฤดูร้อน</option></select></div></div><div class="quick-actions"><button class="btn btn-primary" onclick="printCustomPdfReport()"><i class="fa-solid fa-file-pdf"></i> สร้าง PDF</button><button class="btn btn-outline" onclick="exportCustomCsv()"><i class="fa-solid fa-file-csv"></i> ส่งออก CSV</button></div></div>';
+      const select=document.getElementById('reportModule');
+      select.innerHTML=Object.values(ARAMS_API.modules).filter(m=>m.tables&&m.tables.length).map(m=>'<option value="'+escapeHtml(m.code)+'">'+escapeHtml(m.label)+'</option>').join('');
+      updateReportTableOptions();
+    }
+    function updateReportTableOptions() {
+      const mod=ARAMS_API.modules[document.getElementById('reportModule')?.value]||MODULES[document.getElementById('reportModule')?.value];const table=document.getElementById('reportTable');if(!table||!mod)return;
+      table.innerHTML=(mod.tables||[]).map(t=>'<option value="'+escapeHtml(t)+'">'+escapeHtml(TABLE_LABELS[t]||t)+' ('+escapeHtml(t)+')</option>').join('');
+    }
+    async function openReportOptions(index) {
+      const p=REPORT_PRESETS[index];const html='<div class="text-left"><div class="field"><label>ปีการศึกษา (ไม่บังคับ)</label><input id="presetYear" placeholder="เช่น 2569"></div><div class="field"><label>ภาคเรียน (ไม่บังคับ)</label><select id="presetTerm"><option value="">ทุกภาคเรียน</option><option value="1">1</option><option value="2">2</option><option value="SUMMER">ฤดูร้อน</option></select></div><div class="field"><label>หัวข้อรายงาน (ไม่บังคับ)</label><input id="presetTitle" value="'+escapeHtml(p.title)+'"></div></div>';
+      const r=await Swal.fire({title:'กำหนดรายงาน PDF',html,showCancelButton:true,confirmButtonText:'สร้าง PDF',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',preConfirm:()=>({year:document.getElementById('presetYear').value.trim(),term:document.getElementById('presetTerm').value,title:document.getElementById('presetTitle').value.trim()})});if(!r.isConfirmed)return;
+      await generatePdfReport(p.module,p.table,r.value.title||p.title,{academicYear:r.value.year,termCode:r.value.term});
+    }
+    function getReportFilter() {
+      const filters={};const year=document.getElementById('reportYear')?.value.trim()||'';const term=document.getElementById('reportTerm')?.value||'';if(year)filters.academicYear=year;if(term)filters.termCode=term;return filters;
+    }
+    async function printCustomPdfReport() {
+      const module=document.getElementById('reportModule').value,table=document.getElementById('reportTable').value,title=document.getElementById('reportTitle').value.trim()||TABLE_LABELS[table]||table;
+      await generatePdfReport(module,table,title,getReportFilter());
+    }
+    async function exportCustomCsv() {
+      const module=document.getElementById('reportModule').value,table=document.getElementById('reportTable').value;await exportCsv(module,table,getReportFilter());
+    }
+    async function exportPresetCsv(index) {
+      const p=REPORT_PRESETS[index];const year=await Swal.fire({title:'กำหนดปีการศึกษา',input:'text',inputPlaceholder:'เว้นว่างเพื่อส่งออกทุกปี',showCancelButton:true,confirmButtonText:'ส่งออก',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d'});if(!year.isConfirmed)return;
+      await exportCsv(p.module,p.table,year.value?{academicYear:year.value}:{});
+    }
+    async function exportCsv(module,table,filters={}) {
+      Swal.fire({title:'กำลังเตรียมไฟล์ CSV',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});
+      const r=await apiRequest('reports.exportCsv',{module,table,filters});Swal.close();if(!r.success){await notify('error','ส่งออกข้อมูลไม่สำเร็จ',r.message);return;}
+      downloadTextFile(r.data.csv,r.data.fileName||table+'.csv','text/csv;charset=utf-8');await notify('success','เตรียมไฟล์เรียบร้อยแล้ว','จำนวน '+Number(r.data.rowCount||0).toLocaleString('th-TH')+' รายการ');
+    }
+    async function exportCurrentCsv() {await exportCsv(ARAMS_API.currentModule,ARAMS_API.currentTable,{});}
+    function downloadTextFile(text,fileName,type) {
+      const blob=new Blob([text],{type:type||'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fileName||'ARAMS-export.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+    }
+    async function fetchAllReportRows(module,table,filters) {
+      const pageSize=200;let page=1,all=[],totalPages=1;
+      do {const r=await apiRequest('data.list',{module,table,page,pageSize,q:'',filters,sortBy:'createdAt',sortDir:'asc'});if(!r.success)throw new Error(r.message);const d=r.data||{};all=all.concat(d.records||[]);totalPages=Math.min(Number(d.pagination?.totalPages||1),25);page++;} while(page<=totalPages&&all.length<5000);
+      return all.slice(0,5000);
+    }
+    async function getSchoolReportName() {
+      try {const r=await apiRequest('data.list',{module:'settings',table:'SCHOOL_PROFILE',page:1,pageSize:1});if(r.success&&r.data.records.length){const s=r.data.records[0];return s.schoolName||s.name||'โรงเรียนสังกัดองค์การบริหารส่วนจังหวัดพัทลุง';}}catch(_){ }
+      return 'โรงเรียนสังกัดองค์การบริหารส่วนจังหวัดพัทลุง';
+    }
+    async function generatePdfReport(module,table,title,filters={}) {
+      const printWindow=window.open('','_blank','width=1100,height=800');if(!printWindow){await notify('warning','ไม่สามารถเปิดหน้ารายงานได้','กรุณาอนุญาต Pop-up สำหรับเว็บไซต์นี้แล้วลองใหม่');return;}
+      printWindow.document.write('<!doctype html><html lang="th"><head><meta charset="utf-8"><title>กำลังจัดทำรายงาน</title><style>body{font-family:Sarabun,Tahoma,sans-serif;padding:40px}</style></head><body>กำลังจัดเตรียมรายงาน กรุณารอสักครู่...</body></html>');printWindow.document.close();
+      try {
+        const [records,schoolName]=await Promise.all([fetchAllReportRows(module,table,filters),getSchoolReportName()]);
+        const columns=(TABLE_SCHEMA[table]||[]).filter(f=>!HIDDEN_FIELDS.has(f)&&!BASE_FIELDS.has(f)).slice(0,10);
+        const dateText=new Date().toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'});
+        const filterText=[filters.academicYear?'ปีการศึกษา '+filters.academicYear:'',filters.termCode?'ภาคเรียน '+filters.termCode:''].filter(Boolean).join(' · ')||'ข้อมูลทั้งหมด';
+        const rows=records.map((r,i)=>'<tr><td class="number">'+(i+1)+'</td>'+columns.map(f=>'<td>'+escapeHtml(displayValue(r[f],f))+'</td>').join('')+'</tr>').join('');
+        const html='<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>'+escapeHtml(title)+'</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet"><style>'+
+          '@page{size:A4 landscape;margin:16mm 14mm 18mm;@bottom-left{content:"ARAMS · '+escapeHtml(table)+'";font-family:Sarabun,sans-serif;font-size:9pt;color:#666}@bottom-right{content:"หน้า " counter(page) " / " counter(pages);font-family:Sarabun,sans-serif;font-size:9pt;color:#666}}'+
+          '*{box-sizing:border-box}body{font-family:"Sarabun","TH Sarabun PSK",sans-serif;color:#1e293b;font-size:10pt;margin:0}header{text-align:center;border-bottom:2px solid #243f60;padding-bottom:9px;margin-bottom:13px}header h1{font-size:16pt;margin:0 0 2px;font-weight:700;color:#17365d}header h2{font-size:13pt;margin:0;font-weight:600}header p{font-size:10pt;margin:2px 0 0;color:#475569}.meta{display:flex;justify-content:space-between;font-size:9.5pt;margin:7px 0 10px}.report-title{text-align:center;font-size:14pt;font-weight:700;margin:8px 0 2px}.subline{text-align:center;font-size:10pt;margin-bottom:10px;color:#475569}table{border-collapse:collapse;width:100%;table-layout:auto;font-size:8.7pt}thead{display:table-header-group}tr{page-break-inside:avoid}th,td{border:1px solid #9aa8b8;padding:4px 5px;vertical-align:top;overflow-wrap:anywhere}th{background:#eaf0f6!important;color:#233b58;text-align:center;font-weight:700;-webkit-print-color-adjust:exact;print-color-adjust:exact}td.number{text-align:center;width:30px}.no-data{text-align:center;padding:25px;border:1px solid #9aa8b8}.summary{margin-top:8px;font-size:9pt}.signatures{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:35px;page-break-inside:avoid;text-align:center;font-size:10pt}.signature-line{border-bottom:1px dotted #333;height:28px;margin-bottom:5px}.signature-role{margin-top:3px;color:#333}.footer-note{font-size:8.5pt;color:#475569;margin-top:15px}.print-tools{position:sticky;top:0;background:#edf2f7;padding:10px;text-align:center;margin:-16mm -14mm 12px;display:flex;justify-content:center;gap:8px}.print-tools button{border:0;background:#17365d;color:#fff;padding:8px 18px;border-radius:6px;font:600 12pt Sarabun;cursor:pointer}.print-tools .close{background:#64748b}@media print{.print-tools{display:none}}'+'</style></head><body><div class="print-tools"><button onclick="window.print()"><i></i> พิมพ์ / บันทึกเป็น PDF</button><button class="close" onclick="window.close()">ปิดหน้ารายงาน</button></div><header><h1>'+escapeHtml(schoolName)+'</h1><h2>สังกัดองค์การบริหารส่วนจังหวัดพัทลุง</h2><p>ระบบบริหารงานทะเบียนและวัดผลทางการศึกษา ARAMS</p></header><div class="report-title">'+escapeHtml(title)+'</div><div class="subline">'+escapeHtml(filterText)+'</div><div class="meta"><span>วันที่จัดทำรายงาน: '+escapeHtml(dateText)+'</span><span>จำนวนทั้งสิ้น '+records.length.toLocaleString('th-TH')+' รายการ</span></div>'+
+          (records.length?'<table><thead><tr><th>ลำดับ</th>'+columns.map(f=>'<th>'+escapeHtml(labelOf(f))+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table>':'<div class="no-data">ไม่พบข้อมูลตามเงื่อนไขที่กำหนด</div>')+
+          '<div class="summary">หมายเหตุ: เอกสารนี้จัดทำจากข้อมูลในระบบ ARAMS ณ วันที่ '+escapeHtml(dateText)+' โปรดตรวจสอบความถูกต้องก่อนนำไปใช้เป็นหลักฐานทางราชการ</div><section class="signatures"><div><div class="signature-line"></div><div>(........................................................)</div><div class="signature-role">ผู้จัดทำรายงาน</div><div>วันที่ ........../........../..........</div></div><div><div class="signature-line"></div><div>(........................................................)</div><div class="signature-role">ผู้ตรวจสอบ</div><div>วันที่ ........../........../..........</div></div><div><div class="signature-line"></div><div>(........................................................)</div><div class="signature-role">ผู้อนุมัติ</div><div>วันที่ ........../........../..........</div></div></section><div class="footer-note">เอกสารจากระบบ ARAMS · ข้อมูลภายในสถานศึกษา</div><script>window.addEventListener("load",function(){if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){setTimeout(function(){window.print()},400)})}else{setTimeout(function(){window.print()},700)}});<\/script></body></html>';
+        printWindow.document.open();printWindow.document.write(html);printWindow.document.close();
+      } catch(error) {console.error('PDF report error',error);printWindow.close();await notify('error','จัดทำรายงานไม่สำเร็จ',friendlyError(error.message));}
+    }
+
+    /* ======================================================================
+       CSV IMPORT: template and batch upsert in groups of at most 200 records
+       ====================================================================== */
+    async function openImportDialog() {
+      const module=ARAMS_API.currentModule,table=ARAMS_API.currentTable;if(table==='USERS'){await notify('info','ไม่รองรับการนำเข้าบัญชีผู้ใช้','กรุณาสร้างบัญชีผ่านเมนูจัดการบัญชีผู้ใช้งาน');return;}
+      const fields=(TABLE_SCHEMA[table]||[]).filter(f=>!HIDDEN_FIELDS.has(f)&&!BASE_FIELDS.has(f));
+      const result=await Swal.fire({title:'นำเข้าข้อมูล CSV',html:'<div class="text-left"><p class="muted">กรุณาใช้ชื่อคอลัมน์ตรงกับชื่อฟิลด์ในระบบ เช่น studentCode, firstName, lastName</p><button type="button" class="btn btn-outline btn-sm" id="downloadCsvTemplate"><i class="fa-solid fa-download"></i> ดาวน์โหลดแม่แบบ CSV</button><div class="field" style="margin-top:14px"><label>เลือกไฟล์ CSV จากเครื่อง</label><input type="file" id="csvImportFile" accept=".csv,text/csv"></div></div>',showCancelButton:true,confirmButtonText:'นำเข้าข้อมูล',cancelButtonText:'ยกเลิก',confirmButtonColor:'#17365d',didOpen:()=>{document.getElementById('downloadCsvTemplate').onclick=()=>downloadTextFile('\uFEFF'+fields.join(',')+'\r\n',table+'_template.csv','text/csv;charset=utf-8');},preConfirm:async()=>{const file=document.getElementById('csvImportFile').files[0];if(!file){Swal.showValidationMessage('กรุณาเลือกไฟล์ CSV');return false;}if(file.size>5*1024*1024){Swal.showValidationMessage('ไฟล์มีขนาดใหญ่เกิน 5 MB');return false;}return await file.text();}});if(!result.isConfirmed)return;
+      try {const rows=parseCsv(result.value);if(!rows.length){await notify('warning','ไม่พบข้อมูล','ไฟล์ CSV ไม่มีแถวข้อมูล');return;}const headers=rows.shift().map(x=>String(x).trim().replace(/^\uFEFF/,''));const schema=TABLE_SCHEMA[table]||[];const allowed=headers.filter(h=>schema.includes(h)&&!HIDDEN_FIELDS.has(h)&&!BASE_FIELDS.has(h));if(!allowed.length){await notify('error','ไม่พบคอลัมน์ที่รองรับ','กรุณาใช้แม่แบบ CSV ของระบบ');return;}
+        const records=rows.filter(row=>row.some(v=>String(v||'').trim())).map(row=>{const obj={};allowed.forEach(h=>{const i=headers.indexOf(h);if(i>=0&&row[i]!==undefined&&row[i]!=='')obj[h]=row[i];});return obj;});
+        if(records.length>5000){await notify('warning','จำนวนข้อมูลเกินกำหนด','นำเข้าได้ไม่เกิน 5,000 รายการต่อรอบ');return;}
+        Swal.fire({title:'กำลังนำเข้าข้อมูล',text:'จำนวน '+records.length+' รายการ',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});let inserted=0,updated=0,skipped=0;const uniqueField=({STUDENTS:'studentCode',SUBJECTS:'subjectCode',TEACHERS:'email',ADMISSIONS:'applicationNo'})[table]||'id';
+        for(let i=0;i<records.length;i+=200){const r=await apiRequest('data.bulkUpsert',{module,table,uniqueField,records:records.slice(i,i+200)});if(!r.success){Swal.close();await notify('error','นำเข้าข้อมูลไม่ครบถ้วน',r.message+' ดำเนินการแล้ว '+inserted+' รายการ');return;}inserted+=r.data.inserted||0;updated+=r.data.updated||0;skipped+=r.data.skipped||0;}
+        Swal.close();await notify('success','นำเข้าข้อมูลเรียบร้อยแล้ว','เพิ่ม '+inserted+' · ปรับปรุง '+updated+' · ข้าม '+skipped);await loadRecords();
+      }catch(error){console.error(error);await notify('error','อ่านไฟล์ไม่สำเร็จ','กรุณาตรวจสอบรูปแบบไฟล์ CSV และเข้ารหัส UTF-8');}
+    }
+    function parseCsv(text) {
+      const rows=[];let row=[],field='',quoted=false;const src=String(text||'').replace(/^\uFEFF/,'');
+      for(let i=0;i<src.length;i++){const ch=src[i],next=src[i+1];if(ch==='"'){if(quoted&&next==='"'){field+='"';i++;}else quoted=!quoted;}else if(ch===','&&!quoted){row.push(field);field='';}else if((ch==='\n'||ch==='\r')&&!quoted){if(ch==='\r'&&next==='\n')i++;row.push(field);rows.push(row);row=[];field='';}else field+=ch;}
+      if(field.length||row.length){row.push(field);rows.push(row);}return rows;
+    }
+
+    /* ======================================================================
+       ANALYTICS / SETTINGS / AUDIT CENTER
+       ====================================================================== */
+    async function renderAnalytics() {
+      const root=document.getElementById('pageContent');root.innerHTML='<div class="loading-line"></div>';
+      const [gradeResult,attendanceResult,dashResult]=await Promise.all([
+        apiRequest('data.list',{module:'analytics',table:'GRADE_RESULTS',page:1,pageSize:200,q:'',sortBy:'updatedAt',sortDir:'desc'}),
+        apiRequest('attendance.summary',{filters:{}}),
+        apiRequest('system.dashboard',{})
+      ]);
+      if(!gradeResult.success){root.innerHTML='<div class="card empty-state">'+escapeHtml(gradeResult.message)+'</div>';return;}
+      const grades=gradeResult.data.records||[];const d=dashResult.success?dashResult.data:{};const counts=d.counts||{};
+      const valid=grades.filter(x=>x.gradePoint!==''&&x.gradePoint!==null&&Number.isFinite(Number(x.gradePoint)));
+      const avg=valid.length?valid.reduce((s,x)=>s+Number(x.gradePoint||0),0)/valid.length:0;
+      const distribution={};valid.forEach(x=>{const key=String(x.gradeLabel||x.resultCode||'ไม่ระบุ');distribution[key]=(distribution[key]||0)+1;});
+      const maximum=Math.max(1,...Object.values(distribution));
+      const distHtml=Object.entries(distribution).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'<div class="level-row"><strong>'+escapeHtml(k)+'</strong><div class="bar-track"><div class="bar-fill" style="width:'+(v/maximum*100)+'%"></div></div><span class="text-right">'+v+'</span></div>').join('')||'<div class="empty-state">ยังไม่มีผลการเรียนสำหรับวิเคราะห์</div>';
+      const at=attendanceResult.success?attendanceResult.data:[];const attendanceCount=at.reduce((s,x)=>s+Number(x.total||0),0);const averageAttendance=at.length?at.reduce((s,x)=>s+Number(x.attendancePercent||0),0)/at.length:0;
+      root.innerHTML='<div class="page-title-row"><div><h1 class="page-title">วิเคราะห์ผลการเรียนและคุณภาพผู้เรียน</h1><div class="page-subtitle">สรุปผลจากข้อมูลที่ผู้ใช้งานมีสิทธิ์เข้าถึง · แสดงข้อมูลผลการเรียนล่าสุดสูงสุด 200 รายการในภาพรวมนี้</div></div><button class="btn btn-outline" onclick="renderAnalytics()"><i class="fa-solid fa-rotate"></i> รีเฟรช</button></div><div class="stats-grid"><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div><div><div class="stat-label">ค่าเกรดเฉลี่ยของรายการที่แสดง</div><div class="stat-value">'+avg.toFixed(2)+'</div></div></div><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div><div><div class="stat-label">รายการผลการเรียนที่ประมวลผล</div><div class="stat-value">'+valid.length+'</div></div></div><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></div><div><div class="stat-label">ผลการเรียนต้องตรวจสอบ</div><div class="stat-value">'+Number(counts.gradeWarnings||0)+'</div></div></div><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div><div><div class="stat-label">ร้อยละเวลาเรียนเฉลี่ย</div><div class="stat-value">'+averageAttendance.toFixed(1)+'%</div></div></div></div><div class="grid-two"><section class="card"><h2 class="card-title"><i class="fa-solid fa-chart-column"></i> การกระจายผลการเรียน</h2><div class="level-bars">'+distHtml+'</div></section><section class="card"><h2 class="card-title"><i class="fa-solid fa-list-check"></i> ตัวชี้วัดการติดตาม</h2><div class="simple-list"><div class="simple-list-item"><span>นักเรียนที่มีผลการเรียนค้าง/ต้องแก้ไข</span><strong>'+Number(counts.gradeWarnings||0).toLocaleString('th-TH')+'</strong></div><div class="simple-list-item"><span>ผลการเรียนรออนุมัติ</span><strong>'+Number(counts.pendingGrades||0).toLocaleString('th-TH')+'</strong></div><div class="simple-list-item"><span>กรณีแก้ไขผลการเรียนที่ยังเปิดอยู่</span><strong>'+Number(counts.openGradeImprovements||0).toLocaleString('th-TH')+'</strong></div><div class="simple-list-item"><span>จำนวนรายการเวลาเรียนที่นำมาคำนวณ</span><strong>'+attendanceCount.toLocaleString('th-TH')+'</strong></div></div><p class="small muted">ข้อมูลนี้เป็นตัวชี้วัดเบื้องต้น ไม่ใช่ผลประเมินคุณภาพอย่างเป็นทางการ</p></section></div><section class="card"><h2 class="card-title"><i class="fa-solid fa-arrow-up-right-from-square"></i> เปิดตารางข้อมูลเพื่อวิเคราะห์เพิ่มเติม</h2><div class="quick-actions"><button class="btn btn-outline" onclick="renderDataModule(\'analytics\',\'GRADE_RESULTS\')">ผลการเรียน</button><button class="btn btn-outline" onclick="renderDataModule(\'analytics\',\'SCORES\')">คะแนน</button><button class="btn btn-outline" onclick="renderDataModule(\'analytics\',\'ATTENDANCE_SUMMARIES\')">สรุปเวลาเรียน</button><button class="btn btn-outline" onclick="renderDataModule(\'analytics\',\'REPORT_SNAPSHOTS\')">ภาพรวมรายงาน</button></div></section>';
+    }
+    function renderSettings() {
+      const root=document.getElementById('pageContent');
+      const items=[['USERS','บัญชีผู้ใช้งาน','fa-users-gear'],['ROLES','บทบาทผู้ใช้งาน','fa-user-shield'],['PERMISSIONS','รายการสิทธิ์','fa-key'],['ROLE_PERMISSIONS','กำหนดสิทธิ์ตามบทบาท','fa-shield-halved'],['SYSTEM_SETTINGS','ตั้งค่าระบบ','fa-sliders'],['SCHOOL_PROFILE','ข้อมูลสถานศึกษา','fa-school']];
+      root.innerHTML='<div class="page-title-row"><div><h1 class="page-title">ตั้งค่าระบบ</h1><div class="page-subtitle">จัดการบัญชีผู้ใช้ บทบาท สิทธิ์ และข้อมูลสถานศึกษา</div></div></div><div class="report-grid">'+items.map(x=>'<button class="report-tile" style="text-align:left" onclick="renderDataModule(\'settings\',\''+x[0]+'\')"><i class="fa-solid '+x[2]+'"></i><strong>'+x[1]+'</strong><span>จัดการข้อมูล '+x[1]+'</span><span class="btn btn-outline btn-sm">เปิดรายการ</span></button>').join('')+'</div><section class="card" style="margin-top:18px"><h2 class="card-title"><i class="fa-solid fa-lock"></i> การจัดการความปลอดภัย</h2><div class="quick-actions"><button class="btn btn-outline" onclick="openChangePassword()"><i class="fa-solid fa-key"></i> เปลี่ยนรหัสผ่านของฉัน</button><button class="btn btn-outline" onclick="renderSystem()"><i class="fa-solid fa-clock-rotate-left"></i> ดูประวัติการใช้งาน</button></div></section>';
+    }
+    async function renderSystem() {
+      const root=document.getElementById('pageContent');root.innerHTML='<div class="loading-line"></div>';
+      const status=await apiRequest('system.status',{}, {token:''});const audit=await apiRequest('system.audit',{page:1,pageSize:20});
+      const d=status.success?status.data:{};const rows=audit.success?audit.data.records||[]:[];
+      root.innerHTML='<div class="page-title-row"><div><h1 class="page-title">ระบบกลางและความปลอดภัย</h1><div class="page-subtitle">สถานะการติดตั้ง ประวัติการใช้งาน และรายการอัปโหลดรูปภาพ</div></div><button class="btn btn-outline" onclick="renderSystem()"><i class="fa-solid fa-rotate"></i> รีเฟรช</button></div><div class="stats-grid"><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-database"></i></div><div><div class="stat-label">สถานะฐานข้อมูล</div><div class="stat-value" style="font-size:20px">'+(d.initialized?'พร้อมใช้งาน':'ยังไม่ติดตั้ง')+'</div></div></div><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-image"></i></div><div><div class="stat-label">ระบบอัปโหลดรูปภาพ</div><div class="stat-value" style="font-size:20px">'+(d.imageUploadConfigured?'พร้อมใช้งาน':'ยังไม่ตั้งค่า')+'</div></div></div><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-code-branch"></i></div><div><div class="stat-label">เวอร์ชันระบบ</div><div class="stat-value" style="font-size:20px">'+escapeHtml(d.version||'-')+'</div></div></div><div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-clock"></i></div><div><div class="stat-label">รายการประวัติล่าสุด</div><div class="stat-value">'+rows.length+'</div></div></div></div><section class="card"><h2 class="card-title"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการใช้งานล่าสุด</h2>'+(rows.length?'<div class="table-wrap"><table class="data-table"><thead><tr><th>วันเวลา</th><th>ผู้ใช้งาน</th><th>การดำเนินการ</th><th>โมดูล</th><th>ตาราง</th></tr></thead><tbody>'+rows.map(x=>'<tr><td>'+escapeHtml(x.createdAt||'-')+'</td><td>'+escapeHtml(x.actorUserId||x.userId||'-')+'</td><td>'+escapeHtml(x.action||'-')+'</td><td>'+escapeHtml(x.module||'-')+'</td><td>'+escapeHtml(x.tableName||'-')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty-state">ไม่พบข้อมูลประวัติ หรือบัญชีนี้ไม่มีสิทธิ์ดูประวัติระบบ</div>')+'</section><div class="quick-actions"><button class="btn btn-outline" onclick="renderDataModule(\'system\',\'IMAGE_UPLOADS\')"><i class="fa-solid fa-images"></i> ประวัติการอัปโหลดรูปภาพ</button><button class="btn btn-outline" onclick="renderDataModule(\'system\',\'NOTIFICATIONS\')"><i class="fa-solid fa-bell"></i> การแจ้งเตือน</button><button class="btn btn-outline" onclick="renderDataModule(\'system\',\'AUTH_ATTEMPTS\')"><i class="fa-solid fa-shield-halved"></i> ประวัติการเข้าสู่ระบบ</button></div>';
+    }
+
+    /* ======================================================================
+       API CONNECTION / INITIAL STARTUP
+       ====================================================================== */
+    async function testApiConnection() {
+      const r=await apiRequest('system.status',{}, {token:''});setConnection(Boolean(r.success),r.success?'เชื่อมต่อแล้ว':'เชื่อมต่อข้อมูลไม่สำเร็จ');return r;
+    }
+    async function startArams() {
+      document.getElementById('loginForm').addEventListener('submit',login);
+      if(ARAMS_API.token){const restored=await restoreSession();if(restored){await loadApplication();return;}}
+      document.getElementById('loginScreen').classList.remove('hidden');document.getElementById('appShell').classList.add('hidden');
+      if(ARAMS_API.url)testApiConnection();
+    }
+    document.addEventListener('DOMContentLoaded',startArams);
+  </script>
+</body>
+</html>
